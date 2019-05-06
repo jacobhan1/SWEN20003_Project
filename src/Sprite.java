@@ -1,69 +1,44 @@
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-public class Sprite {
-	private static final String SCOUT_PATH = "assets/scout.png";
-	private static final double SPEED = 0.25;
+public abstract class Sprite {
 	
-	private double x = 812;
-	private double y = 684;
-	
-	// Initially, we don't need to move at all
-	private double targetX = x;
-	private double targetY = y;
-	
+	private double x;
+	private double y;
 	private Image image;
 	private Camera camera;
 	
-	public double getX() {
-		return x;
-	}
-	public double getY() {
-		return y;
+	// Building and resource constructor
+	public Sprite(double x, double y, String imageSrc) throws SlickException  {
+		setUp(x, y, imageSrc);
 	}
 	
-	public Sprite(Camera camera) throws SlickException {
-		image = new Image(SCOUT_PATH);
-		
+	// Units constructor
+	public Sprite(double x, double y, String imageSrc, Camera camera) throws SlickException{
+		setUp(x, y, imageSrc);
 		this.camera = camera;
 		camera.followSprite(this);
+	} 
+	
+	// Set x, y and image.
+	private void setUp(double x, double y, String imageSrc) throws SlickException{
+		this.x = x;
+		this.y = y;
+		image = new Image(imageSrc);
 	}
 	
-	public void update(World world) {
-		Input input = world.getInput();
-		
-		// If the mouse button is being clicked, set the target to the cursor location
-		if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
-			targetX = camera.screenXToGlobalX(input.getMouseX());
-			targetY = camera.screenYToGlobalY(input.getMouseY());
-		}
-		
-		// If we're close to our target, reset to our current position
-		if (World.distance(x, y, targetX, targetY) <= SPEED) {
-			resetTarget();
-		} else {
-			// Calculate the appropriate x and y distances
-			double theta = Math.atan2(targetY - y, targetX - x);
-			double dx = (double)Math.cos(theta) * world.getDelta() * SPEED;
-			double dy = (double)Math.sin(theta) * world.getDelta() * SPEED;
-			// Check the tile is free before moving; otherwise, we stop moving
-			if (world.isPositionFree(x + dx, y + dy)) {
-				x += dx;
-				y += dy;
-			} else {
-				resetTarget();
-			}
-		}
+	public double getX() {return x;}
+	public double getY() { return y;}
+	public Camera getCamera() {return camera;}
+	public Image getImage() {return image;}
+	public void setX(double x) {this.x = x;}
+	public void setY(double y) {this.y = y;}
+	public void setImage(String imageSrc) throws SlickException {
+		this.image = new Image(imageSrc);
 	}
+
 	
-	private void resetTarget() {
-		targetX = x;
-		targetY = y;		
-	}
+	public void update(World world) { }
 	
-	public void render() {
-		image.drawCentered((int)camera.globalXToScreenX(x),
-						   (int)camera.globalYToScreenY(y));
-	}
+	public void render() {}
 }

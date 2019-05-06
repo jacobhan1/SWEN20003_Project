@@ -13,7 +13,7 @@ public class World {
 	private static final String MAP_PATH = "assets/main.tmx";
 	private static final String SOLID_PROPERTY = "solid";
 	
-	private Sprite sprite;
+	private Scout scout;
 	
 	private TiledMap map;
 	private Camera camera = new Camera();
@@ -43,7 +43,7 @@ public class World {
 	
 	public World() throws SlickException {
 		map = new TiledMap(MAP_PATH);
-		sprite = new Sprite(camera);
+		//scout = new Scout(camera);
 	}
 	
 	public void update(Input input, int delta) {
@@ -51,13 +51,13 @@ public class World {
 		lastDelta = delta;
 		
 		camera.update(this);
-		sprite.update(this);
+		scout.update(this);
 	}
 	
 	public void render(Graphics g) {
 		map.render((int)camera.globalXToScreenX(0),
 				   (int)camera.globalYToScreenY(0));
-		sprite.render();
+		scout.render();
 	}
 	
 	// This should probably be in a separate static utilities class, but it's a bit excessive for one method.
