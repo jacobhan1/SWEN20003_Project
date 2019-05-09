@@ -1,11 +1,21 @@
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public abstract class Resource extends Sprite{
-
-	public Resource(double x, double y, String imageSrc) throws SlickException{
+public abstract class Resource extends Sprite implements Removable{
+	private int amountLeft;
+	
+	public Resource(double x, double y, String imageSrc, int amount) throws SlickException{
 		super(x, y, imageSrc);
-		// TODO Auto-generated constructor stub
+		this.amountLeft = amount;
 	}
-
+	
+	public int getAmount() {return amountLeft;}
+	public void setAmount(int dx) {amountLeft -= dx;}
+	
+	
+	@Override
+	public void remove(World world) {}
+	
+	
 }

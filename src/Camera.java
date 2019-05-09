@@ -1,4 +1,3 @@
-
 /**
  * This class should be used to restrict the game's view to a subset of the entire world.
  * 
