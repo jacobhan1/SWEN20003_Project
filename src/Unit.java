@@ -22,7 +22,7 @@ public abstract class Unit extends Sprite implements Movable, Selectable{
 		/**
 		 * 
 		 */
-		camera.followSprite(this);
+//		 this.camera.followSprite(this);
 	} 
 	
 	private void resetTarget() {
@@ -62,7 +62,8 @@ public abstract class Unit extends Sprite implements Movable, Selectable{
 			double dy = (double)Math.sin(theta) * world.getDelta() * speed;
 			// Check the tile is free before moving; otherwise, we stop moving
 			if (world.isPositionFree(getX() + dx, getY() + dy)) {
-				move(dx,dy);
+				setX(getX() + dx);
+				setY(getY() + dy);
 			} else {
 				resetTarget();
 			}
@@ -71,9 +72,9 @@ public abstract class Unit extends Sprite implements Movable, Selectable{
 	
 	@Override
 	public void render() {
-		getImage().drawCentered((int)camera.globalXToScreenX(getX()),
-						   (int)camera.globalYToScreenY(getY()));
-		selectImage.drawCentered((int)camera.globalXToScreenX(getX()),
-				   (int)camera.globalYToScreenY(getY()));
+//		getImage().drawCentered((int)camera.globalXToScreenX(getX()),
+//						   (int)camera.globalYToScreenY(getY()));
+//		selectImage.drawCentered((int)camera.globalXToScreenX(getX()),
+//				   (int)camera.globalYToScreenY(getY()));
 	}
 }

@@ -1,3 +1,4 @@
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -8,8 +9,8 @@ public class Builder extends Unit implements Creatable {
 	
 	
 	
-	public Builder(double x, double y, String imageSrc, double speed) throws SlickException {
-		super(x, y, BUILDER_PATH, SPEED);
+	public Builder(double x, double y, double speed) throws SlickException {
+		super(x, y, BUILDER_PATH, SPEED );
 	}
 	
 	@Override
@@ -22,4 +23,7 @@ public class Builder extends Unit implements Creatable {
 			}
 		return null;
 	}
+	
+	@Override
+	public void render(Graphics g) {}
 }

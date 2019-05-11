@@ -10,7 +10,7 @@ public class Engineer extends Unit implements Movable{
 	private Resource resource;
 	private CommandCenter commandCenter;
 	
-	public Engineer(double x, double y, String imageSrc) throws SlickException {
+	public Engineer(double x, double y) throws SlickException {
 		super(x, y, ENGINEER_PATH, SPEED);
 	}
 	public void setCarryResource(int add) {carryResources += add;}
@@ -37,6 +37,6 @@ public class Engineer extends Unit implements Movable{
 	
 	
 	
-	@Override
-	public void update(World world) {	}
+//	@Override
+//	public void update(World world) {	}
 }

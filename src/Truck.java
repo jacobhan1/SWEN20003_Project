@@ -1,3 +1,4 @@
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -26,4 +27,7 @@ public class Truck extends Unit implements Creatable, Removable {
 	
 	@Override
 	public void remove(World world) {}
+	
+	@Override
+	public void render(Graphics g) {}
 }

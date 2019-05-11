@@ -32,7 +32,7 @@ public abstract class Sprite {
 	}
 	
 	public void render() {
-		image.drawCentered((float)x, (float)y);
+		image.drawCentered((int)x, (int)y);
 		
 	}
 }

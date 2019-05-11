@@ -1,3 +1,4 @@
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -12,12 +13,15 @@ public class CommandCenter extends Building implements Creatable {
 	@Override
 	public Unit create(int input, double x, double y) {
 		// KEY_1, KEY_2, KEY_3 different
-			try {
-				return new Truck(getX(), getY());
-			} catch (SlickException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				return new Truck(getX(), getY());
+//			} catch (SlickException e) {
+//				e.printStackTrace();
+//			}
 		
 		return null;
 	}
+	
+	@Override
+	public void render(Graphics g) {}
 }

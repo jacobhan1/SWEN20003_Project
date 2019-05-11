@@ -16,7 +16,9 @@ import org.newdawn.slick.tiled.TiledMap;
 public class World {
 	private static final String MAP_PATH = "assets/main.tmx";
 	private static final String SOLID_PROPERTY = "solid";
-	
+	private static final int INDEX_OBJECT = 0;
+	private static final int INDEX_X = 1;
+	private static final int INDEX_Y = 2;
 	// all sprites
 	private ArrayList<Sprite> sprites;
 	//private Unit scout;
@@ -39,6 +41,7 @@ public class World {
 	public World() throws SlickException {
 		map = new TiledMap(MAP_PATH);
 		readCsv();
+//		camera.update(this);
 		//scout = new Scout(812, 684, camera);
 	}
 	
@@ -49,9 +52,32 @@ public class World {
 				new BufferedReader(new FileReader("assets/objects.csv"))) {
 			String line;
 			while((line = csvReader.readLine()) != null) {
-				/**
-				 * 
-				 */
+				String[] data = line.split(",");
+				
+				int x = Integer.parseInt(data[INDEX_X]);
+				int y = Integer.parseInt(data[INDEX_Y]);
+				
+				switch(data[INDEX_OBJECT]) {
+					case("command_centre"):
+						sprites.add(new CommandCenter(x,y));
+						break;
+						
+					case("metal_mine"):
+						sprites.add(new Metal(x,y));
+						break;
+						
+					case("unobtainium_mine"):
+						sprites.add(new Unobtainium(x,y));
+						break;
+						
+					case("pylon"):
+						sprites.add(new Pylon(x,y));
+						break;
+					
+					case("engineer"):
+						sprites.add(new Engineer(x,y));
+						break;
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,22 +97,34 @@ public class World {
 		lastInput = input;
 		lastDelta = delta;
 		
-		camera.update(this);
 		
-		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-			for (Sprite sprite: sprites) {
-				if (sprite instanceof Selectable) {
-					sprite.update(this); 
-				}
-			}
-		}
+		
+			
+		
+//		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+//			for (Sprite sprite: sprites) {
+//				if (sprite instanceof Selectable) {
+//					sprite.update(this); 
+//				}
+//			}
+//		}
 		//scout.update(this);
 	}
 	
 	public void render(Graphics g) {
 		map.render((int)camera.globalXToScreenX(0),
 				   (int)camera.globalYToScreenY(0));
-		//scout.render();
+		
+		for(Sprite sprite: sprites) {
+			sprite.render();
+			if(sprite instanceof Engineer) {
+				g.drawString("x:" + sprite.getX() + " y:" + sprite.getY(), (int)camera.globalXToScreenX(768), (int)camera.globalXToScreenX(678));
+
+			}
+		}
+			
+		
+		
 	}
 	
 	// This should probably be in a separate static utilities class, but it's a bit excessive for one method.
