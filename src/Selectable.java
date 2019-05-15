@@ -10,5 +10,7 @@ public interface Selectable {
 	
 	public void select() throws SlickException;
 	
-
+	public void deSelect() throws SlickException;
+	
+	public boolean isSelect();
 }

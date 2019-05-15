@@ -19,6 +19,7 @@ public class World {
 	private static final int INDEX_OBJECT = 0;
 	private static final int INDEX_X = 1;
 	private static final int INDEX_Y = 2;
+
 	// all sprites
 	private ArrayList<Sprite> sprites;
 	//private Unit scout;
@@ -41,8 +42,6 @@ public class World {
 	public World() throws SlickException {
 		map = new TiledMap(MAP_PATH);
 		readCsv();
-//		camera.update(this);
-		//scout = new Scout(812, 684, camera);
 	}
 	
 	//read csv file to init objects
@@ -59,23 +58,23 @@ public class World {
 				
 				switch(data[INDEX_OBJECT]) {
 					case("command_centre"):
-						sprites.add(new CommandCenter(x,y));
+						sprites.add(new CommandCenter(x, y));
 						break;
 						
 					case("metal_mine"):
-						sprites.add(new Metal(x,y));
+						sprites.add(new Metal(x, y));
 						break;
 						
 					case("unobtainium_mine"):
-						sprites.add(new Unobtainium(x,y));
+						sprites.add(new Unobtainium(x, y));
 						break;
 						
 					case("pylon"):
-						sprites.add(new Pylon(x,y));
+						sprites.add(new Pylon(x, y));
 						break;
 					
 					case("engineer"):
-						sprites.add(new Engineer(x,y));
+						sprites.add(new Engineer(x, y, camera));
 						break;
 				}
 			}
@@ -84,47 +83,42 @@ public class World {
 		}
 	}
 	
-//	public boolean isSelectable(Input input) {
-//			for (Sprite sprite: sprites) {
-//				if (sprite instanceof Selectable) {
-//					return true;
-//				}
-//			}
-//			return false;
-//	}
-	
-	public void update(Input input, int delta) {
+
+	/**
+	 * Update the movements of all movable sprites and detect collisions.
+	 * @param input The input to control the movement.
+	 * @param delta The delta makes sure the same speed with different FPS.
+	 * @throws SlickException 
+	 */
+	public void update(Input input, int delta) throws SlickException {
+		
 		lastInput = input;
 		lastDelta = delta;
 		
-		
-		
+		if (lastInput.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+			double mouseX = camera.screenXToGlobalX(lastInput.getMouseX());
+			double mouseY = camera.screenYToGlobalY(lastInput.getMouseY());
 			
-		
-//		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-//			for (Sprite sprite: sprites) {
-//				if (sprite instanceof Selectable) {
-//					sprite.update(this); 
-//				}
-//			}
-//		}
-		//scout.update(this);
+			
+			for(Sprite sprite: sprites) {
+				if(sprite instanceof Selectable && sprite.getX() < mouseX + 32
+						&& sprite.getX() > mouseX - 32 && sprite.getY() < mouseY + 32 
+						&& sprite.getY() > mouseY - 32 ) {
+					
+					sprite.update(this);
+				}
+			}
+		}
 	}
-	
+		
 	public void render(Graphics g) {
 		map.render((int)camera.globalXToScreenX(0),
 				   (int)camera.globalYToScreenY(0));
 		
 		for(Sprite sprite: sprites) {
 			sprite.render();
-			if(sprite instanceof Engineer) {
-				g.drawString("x:" + sprite.getX() + " y:" + sprite.getY(), (int)camera.globalXToScreenX(768), (int)camera.globalXToScreenX(678));
 
 			}
-		}
-			
-		
-		
 	}
 	
 	// This should probably be in a separate static utilities class, but it's a bit excessive for one method.

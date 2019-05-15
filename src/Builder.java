@@ -9,8 +9,8 @@ public class Builder extends Unit implements Creatable {
 	
 	
 	
-	public Builder(double x, double y, double speed) throws SlickException {
-		super(x, y, BUILDER_PATH, SPEED );
+	public Builder(double x, double y, Camera camera) throws SlickException {
+		super(x, y, BUILDER_PATH, SPEED, camera );
 	}
 	
 	@Override

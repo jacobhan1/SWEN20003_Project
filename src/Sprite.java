@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -5,7 +7,7 @@ public abstract class Sprite {
 	// x, y are global coordinates
 	private double x;
 	private double y;
-	
+	Camera camera;
 	// sprites' image
 	private Image image;
 	
@@ -23,16 +25,16 @@ public abstract class Sprite {
 	public void setX(double x) {this.x = x;}
 	public void setY(double y) {this.y = y;}
 	public void setImage(Image image)  {
-		this.image = image;
+		
 	}
 
 	
-	public void update(World world) { 
+	public void update(World world) throws SlickException { 
 		
 	}
 	
 	public void render() {
-		image.drawCentered((int)x, (int)y);
+		image.drawCentered((int)(x-300), (int)(y-300));
 		
 	}
 }

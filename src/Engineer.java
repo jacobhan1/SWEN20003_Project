@@ -10,8 +10,8 @@ public class Engineer extends Unit implements Movable{
 	private Resource resource;
 	private CommandCenter commandCenter;
 	
-	public Engineer(double x, double y) throws SlickException {
-		super(x, y, ENGINEER_PATH, SPEED);
+	public Engineer(double x, double y, Camera camera) throws SlickException {
+		super(x, y, ENGINEER_PATH, SPEED, camera);
 	}
 	public void setCarryResource(int add) {carryResources += add;}
 	public int getCarryResource() {return carryResources;}
