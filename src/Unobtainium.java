@@ -6,8 +6,8 @@ public class Unobtainium extends Resource {
 	private static final int Unobtainium_AMOUNT = 500;
 	
 	
-	public Unobtainium(double x, double y) throws SlickException{
-		super(x, y, UNOBTAINIUN_PATH, Unobtainium_AMOUNT);
+	public Unobtainium(double x, double y, Camera camera) throws SlickException{
+		super(x, y, UNOBTAINIUN_PATH, Unobtainium_AMOUNT, camera);
 	}
 
 }

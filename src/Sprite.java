@@ -1,27 +1,30 @@
 import java.util.ArrayList;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public abstract class Sprite {
 	// x, y are global coordinates
 	private double x;
 	private double y;
-	Camera camera;
+	private Camera camera;
 	// sprites' image
 	private Image image;
 	
 	// sprites' constructor
-	public Sprite(double x, double y, String imageSrc) throws SlickException  {
+	public Sprite(double x, double y, String imageSrc, Camera camera) throws SlickException  {
 		this.x = x;
 		this.y = y;
 		image = new Image(imageSrc);
+		this.camera = camera;
 	}
 	
 	
 	public double getX() {return x;}
 	public double getY() { return y;}
 	public Image getImage() {return image;}
+	public Camera getCamera() {return camera;}
 	public void setX(double x) {this.x = x;}
 	public void setY(double y) {this.y = y;}
 	public void setImage(Image image)  {
@@ -29,12 +32,40 @@ public abstract class Sprite {
 	}
 
 	
-	public void update(World world) throws SlickException { 
+	public void update(World world) throws SlickException{ 
+		Input input = world.getInput();
 		
+		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+			double mouseX = getCamera().screenXToGlobalX(input.getMouseX());
+			double mouseY = getCamera().screenYToGlobalY(input.getMouseY());
+			
+			
+			for (Sprite sprite : world.getSprites()) {
+				if (sprite instanceof Selectable && sprite.getX() < mouseX + 32 && sprite.getX() > mouseX - 32 && sprite.getY() < mouseY + 32 && sprite.getY() > mouseY - 32 ) {
+					
+					if (sprite instanceof Unit) {
+						for (Sprite sprites : world.getSprites()) {
+							if (sprites instanceof Building && ((Selectable)sprites).isSelect()) {
+								((Selectable)sprites).deSelect();
+							}
+						}
+						((Selectable)sprite).select();
+					}else {
+						for (Sprite sprites : world.getSprites()) {
+							if (sprites instanceof Unit && ((Selectable)sprites).isSelect()) {
+								((Selectable)sprites).deSelect();
+							}
+						}
+						((Selectable)sprite).select();
+					}	
+				}
+			}
+		}
 	}
 	
 	public void render() {
-		image.drawCentered((int)(x-300), (int)(y-300));
+		image.drawCentered((int)camera.globalXToScreenX(x), 
+				(int)camera.globalYToScreenY(y));
 		
 	}
 }

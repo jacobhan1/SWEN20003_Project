@@ -7,8 +7,8 @@ public class Factory extends Building implements Creatable {
 	private static final String FACTORY_PATH = "assets/buildings/factory.png";
 	
 	
-	public Factory(double x, double y) throws SlickException {
-		super(x, y, FACTORY_PATH);
+	public Factory(double x, double y, Camera camera) throws SlickException {
+		super(x, y, FACTORY_PATH, camera);
 		
 	}
 	

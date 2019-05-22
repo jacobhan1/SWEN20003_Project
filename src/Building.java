@@ -4,14 +4,14 @@ import org.newdawn.slick.SlickException;
 
 public abstract class Building extends Sprite implements Selectable{
 	private static final String HIGHLIGHT_LARGE = "assets/highlight_large.png";
-	private Camera camera;
+	
 	private Image selectImage;
 	private int selectTime = 0;
-	public Building(double x, double y, String imageSrc) throws SlickException {
-		super(x, y, imageSrc);
+	public Building(double x, double y, String imageSrc, Camera camera) throws SlickException {
+		super(x, y, imageSrc, camera);
 		
 	}
-	public Camera getCamera() {return camera;}
+	
 	
 	
 	@Override
@@ -21,13 +21,24 @@ public abstract class Building extends Sprite implements Selectable{
 	
 	@Override
 	public void update(World world) throws SlickException {
-		for(Sprite sprite : world.getSprites()) {
-			if (sprite instanceof Unit && ((Selectable)sprite).isSelect()) {
-				((Selectable)sprite).deSelect();
-			}
-		}
-		select();
+//		
 //		Input input = world.getInput();
+//		
+//		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+//			double mouseX = getCamera().screenXToGlobalX(input.getMouseX());
+//			double mouseY = getCamera().screenYToGlobalY(input.getMouseY());
+//			
+//			for (Sprite sprite : world.getSprites()) {
+//				if (sprite instanceof Building && sprite.getX() < mouseX + 32
+//						&& sprite.getX() > mouseX - 32 && sprite.getY() < mouseY + 32 
+//						&& sprite.getY() > mouseY - 32 ) {
+//					
+//					select();
+//				}else if(sprite instanceof Building && isSelect()){
+//					deSelect();
+//				}
+//			}
+//		}
 //		
 //		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 //			selectTime ++;
@@ -53,9 +64,9 @@ public abstract class Building extends Sprite implements Selectable{
 	
 	@Override
 	public void render() {
-		if(selectImage != null) {
-		selectImage.drawCentered((int)getX()-300 , (int)getY()-300 );
+		if(isSelect()) {
+		selectImage.drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
 		}
-		getImage().drawCentered((int)getX()-300, (int)getY()-300);
+		getImage().drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
 	}
 }

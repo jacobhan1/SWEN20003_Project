@@ -58,19 +58,19 @@ public class World {
 				
 				switch(data[INDEX_OBJECT]) {
 					case("command_centre"):
-						sprites.add(new CommandCenter(x, y));
+						sprites.add(new CommandCenter(x, y, camera));
 						break;
 						
 					case("metal_mine"):
-						sprites.add(new Metal(x, y));
+						sprites.add(new Metal(x, y, camera));
 						break;
 						
 					case("unobtainium_mine"):
-						sprites.add(new Unobtainium(x, y));
+						sprites.add(new Unobtainium(x, y, camera));
 						break;
 						
 					case("pylon"):
-						sprites.add(new Pylon(x, y));
+						sprites.add(new Pylon(x, y, camera));
 						break;
 					
 					case("engineer"):
@@ -95,19 +95,8 @@ public class World {
 		lastInput = input;
 		lastDelta = delta;
 		
-		if (lastInput.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-			double mouseX = camera.screenXToGlobalX(lastInput.getMouseX());
-			double mouseY = camera.screenYToGlobalY(lastInput.getMouseY());
-			
-			
-			for(Sprite sprite: sprites) {
-				if(sprite instanceof Selectable && sprite.getX() < mouseX + 32
-						&& sprite.getX() > mouseX - 32 && sprite.getY() < mouseY + 32 
-						&& sprite.getY() > mouseY - 32 ) {
-					
-					sprite.update(this);
-				}
-			}
+		for(Sprite sprite: sprites) {
+			sprite.update(this);
 		}
 	}
 		

@@ -17,7 +17,7 @@ public class Truck extends Unit implements Creatable, Removable {
 		
 		//if (input.isKeyDown(Input.KEY_1)) {
 			try {
-				return new CommandCenter(getX(), getY());
+				return new CommandCenter(getX(), getY(), getCamera());
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}

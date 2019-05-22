@@ -6,8 +6,8 @@ import org.newdawn.slick.SlickException;
 public class CommandCenter extends Building  {
 	private static final String CENTER_PATH = "assets/buildings/command_centre.png";
 	
-	public CommandCenter(double x, double y) throws SlickException{
-		super(x, y, CENTER_PATH);
+	public CommandCenter(double x, double y, Camera camera) throws SlickException{
+		super(x, y, CENTER_PATH, camera);
 	}
 	
 //	@Override

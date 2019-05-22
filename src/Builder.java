@@ -17,7 +17,7 @@ public class Builder extends Unit implements Creatable {
 	public Factory create(int input, double x, double y) {
 			
 			try {
-				return new Factory(x, y);
+				return new Factory(x, y, getCamera());
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}

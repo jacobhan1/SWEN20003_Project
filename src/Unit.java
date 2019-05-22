@@ -6,7 +6,6 @@ import org.newdawn.slick.SlickException;
 
 public abstract class Unit extends Sprite implements Movable, Selectable{
 	private double speed;
-	private Camera camera;
 	// Initially, we don't need to move at all
 	private double targetX = getX();
 	private double targetY = getY();
@@ -16,9 +15,9 @@ public abstract class Unit extends Sprite implements Movable, Selectable{
 	// Units constructor
 	public Unit(double x, double y, String imageSrc, double speed,
 			Camera camera) throws SlickException{
-		super(x, y, imageSrc);
+		super(x, y, imageSrc, camera);
 		this.speed = speed;
-		this.camera = camera;
+		
 		
 		//select then follow
 		/**
@@ -54,53 +53,41 @@ public abstract class Unit extends Sprite implements Movable, Selectable{
 	
 	@Override
 	public void update(World world) throws SlickException {
-		for(Sprite sprite : world.getSprites()) {
-			if (sprite instanceof Building && ((Selectable)sprite).isSelect()) {
-				((Selectable)sprite).deSelect();
+		Input input = world.getInput();
+		
+		
+		
+			
+		
+		// If the mouse button is being clicked, set the target to the cursor location
+		if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON) && isSelect()) {
+			targetX = getCamera().screenXToGlobalX(input.getMouseX());
+			targetY = getCamera().screenYToGlobalY(input.getMouseY());
+		}
+		
+		// If we're close to our target, reset to our current position
+		if (World.distance(getX(), getY(), targetX, targetY) <= speed) {
+			resetTarget();
+		} else {
+			// Calculate the appropriate x and y distances
+			double theta = Math.atan2(targetY - getY(), targetX - getX());
+			double dx = (double)Math.cos(theta) * world.getDelta() * speed;
+			double dy = (double)Math.sin(theta) * world.getDelta() * speed;
+			// Check the tile is free before moving; otherwise, we stop moving
+			if (world.isPositionFree(getX() + dx, getY() + dy)) {
+				setX(getX() + dx);
+				setY(getY() + dy);
+			} else {
+				resetTarget();
 			}
 		}
-		select();
-		
-		
-		
-			
-		
-				
-		
-			
-			
-		
-//		Input input = world.getInput();
-//		
-//		// If the mouse button is being clicked, set the target to the cursor location
-//		if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
-//			targetX = camera.screenXToGlobalX(input.getMouseX());
-//			targetY = camera.screenYToGlobalY(input.getMouseY());
-//		}
-//		
-//		// If we're close to our target, reset to our current position
-//		if (World.distance(getX(), getY(), targetX, targetY) <= speed) {
-//			resetTarget();
-//		} else {
-//			// Calculate the appropriate x and y distances
-//			double theta = Math.atan2(targetY - getY(), targetX - getX());
-//			double dx = (double)Math.cos(theta) * world.getDelta() * speed;
-//			double dy = (double)Math.sin(theta) * world.getDelta() * speed;
-//			// Check the tile is free before moving; otherwise, we stop moving
-//			if (world.isPositionFree(getX() + dx, getY() + dy)) {
-//				setX(getX() + dx);
-//				setY(getY() + dy);
-//			} else {
-//				resetTarget();
-//			}
-//		}
 	}
 	
 	@Override
 	public void render() {
-		if(selectImage != null) {
-		selectImage.drawCentered((int)getX()-300 , (int)getY()-300 );
+		if(isSelect()) {
+		selectImage.drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()) );
 		}
-		getImage().drawCentered((int)getX()-300, (int)getY()-300);
+		getImage().drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
 	}
 }
