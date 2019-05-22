@@ -29,5 +29,8 @@ public class Truck extends Unit implements Creatable, Removable {
 	public void remove(World world) {}
 	
 	@Override
-	public void render(Graphics g) {}
+	public void render(Graphics g) {
+		super.render(g);
+		g.drawString("1- create command centre", 100, 32);
+	}
 }

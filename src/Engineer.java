@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class Engineer extends Unit implements Movable{
@@ -37,6 +38,9 @@ public class Engineer extends Unit implements Movable{
 	
 	
 	
-//	@Override
-//	public void update(World world) {	}
+	@Override
+	public void update(World world) throws SlickException {
+		super.update(world);
+	}
 }
+	

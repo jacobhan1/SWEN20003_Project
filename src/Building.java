@@ -1,3 +1,4 @@
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -11,8 +12,6 @@ public abstract class Building extends Sprite implements Selectable{
 		super(x, y, imageSrc, camera);
 		
 	}
-	
-	
 	
 	@Override
 	public boolean isSelect() {
@@ -35,10 +34,10 @@ public abstract class Building extends Sprite implements Selectable{
 	}	
 	
 	@Override
-	public void render() {
+	public void render(Graphics g) {
 		if(isSelect()) {
 		selectImage.drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
 		}
-		getImage().drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
+		super.render(g);
 	}
 }

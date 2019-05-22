@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -42,7 +43,9 @@ public abstract class Sprite {
 			
 			// select the Unit or Building
 			for (Sprite sprite : world.getSprites()) {
-				if (sprite instanceof Selectable && sprite.getX() < mouseX + 32 && sprite.getX() > mouseX - 32 && sprite.getY() < mouseY + 32 && sprite.getY() > mouseY - 32 ) {
+				if (sprite instanceof Selectable && sprite.getX() < mouseX + 32 
+						&& sprite.getX() > mouseX - 32 
+						&& sprite.getY() < mouseY + 32 && sprite.getY() > mouseY - 32 ) {
 					
 					// if it is Unit, deselect any Building and then select Unit itself
 					// or if it is building, deselect any Unit and then select building itself
@@ -61,13 +64,16 @@ public abstract class Sprite {
 						}
 						((Selectable)sprite).select();
 					}	
+				}else if (sprite instanceof Selectable && ((Selectable)sprite).isSelect()) {
+					((Selectable)sprite).deSelect();
+					
 				}
 			}
 		}
 		
 	}
 	
-	public void render() {
+	public void render(Graphics g) {
 		image.drawCentered((int)camera.globalXToScreenX(x), 
 				(int)camera.globalYToScreenY(y));
 		

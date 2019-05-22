@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import org.newdawn.slick.Input;
+
 /**
  * This class should be used to restrict the game's view to a subset of the entire world.
  * 
@@ -10,6 +12,7 @@ public class Camera {
 	private double x = 300;
 	private double y = 300;
 	private Sprite target;
+	private final static double SPEED= 0.4;
 	
 	public void followSprite(Sprite target) {
 		this.target = target;
@@ -30,6 +33,12 @@ public class Camera {
 	}
 	
 	public void update(World world) {
+//		Input input = world.getInput();
+//		int delta = world.getDelta();
+//		double dx = delta * SPEED;
+//		if (input.isKeyPressed(input.KEY_RIGHT)) {
+//			x += dx;
+//		}else {
 		
 		
 		double targetX = target.getX() - App.WINDOW_WIDTH / 2;
@@ -39,6 +48,7 @@ public class Camera {
 		x = Math.max(x, 0);
 		y = Math.min(targetY, world.getMapHeight() - App.WINDOW_HEIGHT);
 		y = Math.max(y, 0);
+//		}
 	
 	}
 		

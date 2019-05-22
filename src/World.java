@@ -19,14 +19,19 @@ public class World {
 	private static final int INDEX_OBJECT = 0;
 	private static final int INDEX_X = 1;
 	private static final int INDEX_Y = 2;
-
+	private static final int DISPLAY = 32;
+	
 	// all sprites
-	private ArrayList<Sprite> sprites;
+	public ArrayList<Sprite> sprites;
 	//private Unit scout;
 	private TiledMap map;
 	private Camera camera = new Camera();
 	private Input lastInput;
 	private int lastDelta;
+	private int metal = 0;
+	private int unobtainium = 0;
+	
+	
 
 	public Input getInput() {return lastInput;}
 	public int getDelta() {return lastDelta;}
@@ -107,9 +112,10 @@ public class World {
 	public void render(Graphics g) {
 		map.render((int)camera.globalXToScreenX(0),
 				   (int)camera.globalYToScreenY(0));
-		
+		g.drawString("Metal:  <" + metal + ">\nUnobtainium:  <" + unobtainium + ">",
+				DISPLAY, DISPLAY);
 		for(Sprite sprite: sprites) {
-			sprite.render();
+			sprite.render(g);
 
 			}
 	}
