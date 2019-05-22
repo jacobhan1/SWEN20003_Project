@@ -95,8 +95,12 @@ public class World {
 		lastInput = input;
 		lastDelta = delta;
 		
-		for(Sprite sprite: sprites) {
+		for (Sprite sprite: sprites) {
 			sprite.update(this);
+			if ((sprite instanceof Unit || sprite instanceof Building) && ((Selectable)sprite).isSelect()) {
+				sprite.getCamera().followSprite(sprite);
+				sprite.getCamera().update(this);
+			}
 		}
 	}
 		

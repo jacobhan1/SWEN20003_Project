@@ -9,11 +9,11 @@ import java.util.ArrayList;
 public class Camera {
 	private double x = 300;
 	private double y = 300;
-	private ArrayList<Sprite> sprites;
+	private Sprite target;
 	
-//	public void followSprite(Sprite target) {
-//		this.target = target;
-//	}
+	public void followSprite(Sprite target) {
+		this.target = target;
+	}
 	
 	public double globalXToScreenX(double x) {
 		return x - this.x;
@@ -30,18 +30,17 @@ public class Camera {
 	}
 	
 	public void update(World world) {
-		this.sprites = world.getSprites();
-		for (Sprite sprite: sprites) {
-			if (((Selectable)sprite).isSelect()) {
-				double targetX = sprite.getX() - App.WINDOW_WIDTH / 2;
-				double targetY = sprite.getY() - App.WINDOW_HEIGHT / 2;
-				
-				x = Math.min(targetX, world.getMapWidth() -	 App.WINDOW_WIDTH);
-				x = Math.max(x, 0);
-				y = Math.min(targetY, world.getMapHeight() - App.WINDOW_HEIGHT);
-				y = Math.max(y, 0);
-			}
-		}
 		
+		
+		double targetX = target.getX() - App.WINDOW_WIDTH / 2;
+		double targetY = target.getY() - App.WINDOW_HEIGHT / 2;
+		
+		x = Math.min(targetX, world.getMapWidth() -	 App.WINDOW_WIDTH);
+		x = Math.max(x, 0);
+		y = Math.min(targetY, world.getMapHeight() - App.WINDOW_HEIGHT);
+		y = Math.max(y, 0);
+	
 	}
+		
+	
 }

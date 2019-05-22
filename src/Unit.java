@@ -55,12 +55,9 @@ public abstract class Unit extends Sprite implements Movable, Selectable{
 	public void update(World world) throws SlickException {
 		Input input = world.getInput();
 		
-		
-		
-			
-		
 		// If the mouse button is being clicked, set the target to the cursor location
 		if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON) && isSelect()) {
+			
 			targetX = getCamera().screenXToGlobalX(input.getMouseX());
 			targetY = getCamera().screenYToGlobalY(input.getMouseY());
 		}

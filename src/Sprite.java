@@ -35,14 +35,17 @@ public abstract class Sprite {
 	public void update(World world) throws SlickException{ 
 		Input input = world.getInput();
 		
+		// Player pressed the left button
 		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
 			double mouseX = getCamera().screenXToGlobalX(input.getMouseX());
 			double mouseY = getCamera().screenYToGlobalY(input.getMouseY());
 			
-			
+			// select the Unit or Building
 			for (Sprite sprite : world.getSprites()) {
 				if (sprite instanceof Selectable && sprite.getX() < mouseX + 32 && sprite.getX() > mouseX - 32 && sprite.getY() < mouseY + 32 && sprite.getY() > mouseY - 32 ) {
 					
+					// if it is Unit, deselect any Building and then select Unit itself
+					// or if it is building, deselect any Unit and then select building itself
 					if (sprite instanceof Unit) {
 						for (Sprite sprites : world.getSprites()) {
 							if (sprites instanceof Building && ((Selectable)sprites).isSelect()) {
@@ -61,6 +64,7 @@ public abstract class Sprite {
 				}
 			}
 		}
+		
 	}
 	
 	public void render() {
