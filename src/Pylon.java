@@ -23,7 +23,7 @@ public class Pylon extends Building {
 	public void update(World world) throws SlickException {
 		super.update(world);
 		
-		for (Sprite sprite: world.sprites) {
+		for (Sprite sprite: world.getSprites()) {
 			if (sprite instanceof Unit && World.distance(sprite.getX(), sprite.getY(), 
 					getX(), getY()) <= World.DISTANCE) {
 				activeImage = new Image(PYLONACTIVE_PATH);

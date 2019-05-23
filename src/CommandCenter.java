@@ -5,7 +5,7 @@ import org.newdawn.slick.SlickException;
 
 public class CommandCenter extends Building implements Creatable {
 	private static final String CENTER_PATH = "assets/buildings/command_centre.png";
-	
+	public int count = 0;
 	public CommandCenter(double x, double y, Camera camera) throws SlickException{
 		super(x, y, CENTER_PATH, camera);
 	}
@@ -25,9 +25,11 @@ public class CommandCenter extends Building implements Creatable {
 		super.update(world);
 		Input input = world.getInput();
 		
-		if(isSelect() && input.isKeyPressed(input.KEY_1)) {
-			
-			world.sprites.add(new Engineer(getX(), getY(), getCamera()));
+		if(isSelect() && input.isKeyPressed(Input.KEY_2)) {
+			count++;
+			if(count == 1) {
+				world.setSprites(create(1, getX(), getY()));
+			}
 		}
 	}
 	

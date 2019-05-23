@@ -23,7 +23,7 @@ public class World {
 	private static final int DISPLAY = 32;
 	
 	// all sprites
-	public ArrayList<Sprite> sprites;
+	private ArrayList<Sprite> sprites;
 	//private Unit scout;
 	private TiledMap map;
 	private Camera camera = new Camera();
@@ -42,6 +42,7 @@ public class World {
 	public void setMetal(int metal) {this.metal += metal;}
 	public void setUnobtainium(int unobtainium) {this.unobtainium += unobtainium;}
 	public ArrayList<Sprite> getSprites() {return sprites;}
+	public void setSprites(Sprite sprite) {this.sprites.add(sprite);}
 	public boolean isPositionFree(double x, double y) {
 		int tileId = map.getTileId(worldXToTileX(x), worldYToTileY(y), 0);
 		return !Boolean.parseBoolean(map.getTileProperty(tileId, SOLID_PROPERTY, "false"));

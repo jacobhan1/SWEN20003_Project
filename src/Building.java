@@ -18,10 +18,7 @@ public abstract class Building extends Sprite implements Selectable{
 		return selectImage != null;
 	} 
 	
-	@Override
-	public void update(World world) throws SlickException {
-
-	}
+	
 	
 	
 	@Override

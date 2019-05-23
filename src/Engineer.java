@@ -15,6 +15,7 @@ public class Engineer extends Unit implements Movable{
 	private CommandCenter commandCenter;
 	private double targetX = getX();
 	private double targetY = getY();
+	public float count = 0;
 	
 	public Engineer(double x, double y, Camera camera) throws SlickException {
 		super(x, y, ENGINEER_PATH, SPEED, camera);
@@ -25,7 +26,7 @@ public class Engineer extends Unit implements Movable{
 	@Override
 	public void update(World world) throws SlickException {
 		Input input = world.getInput();
-		
+		int delta = world.getDelta();
 		// If the mouse button is being clicked, set the target to the cursor location
 		if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON) && isSelect()) {
 			
@@ -34,11 +35,14 @@ public class Engineer extends Unit implements Movable{
 		}else if (commandCenter != null && resource.getAmount() > 0)	{
 			// arrive resource to mine
 			if((World.distance(getX(), getY(), resource.getX(), resource.getY())) <= 32) {
-				targetX = commandCenter.getX();
-				targetY = commandCenter.getY();
-				playerCarryResource = carryResources;
-				resource.setAmount(carryResources);
-				
+				count += delta;
+				if(count > MINE_TIME) {
+					targetX = commandCenter.getX();
+					targetY = commandCenter.getY();
+					playerCarryResource = carryResources;
+					resource.setAmount(carryResources);
+					count = 0;
+				}
 			// arrive commandCenter to send the resource
 			}else if ((World.distance(getX(), getY(), commandCenter.getX(), commandCenter.getY())) <= 32) {
 				targetX = resource.getX();
@@ -59,10 +63,10 @@ public class Engineer extends Unit implements Movable{
 		
 		moves(world, targetX, targetY);
 		// find the resource to mine 
-		findMineResource(world.sprites);
+		findMineResource(world.getSprites());
 		
 		if (isFindResource()) {
-			findNearestCommandCenter(world.sprites);
+			findNearestCommandCenter(world.getSprites());
 		}
 		
 	}
@@ -116,7 +120,7 @@ public class Engineer extends Unit implements Movable{
 	public void render(Graphics g) {
 		if (isFindResource()) {
 		g.drawString("target x " + targetX + "\ntargetY "
-		+ targetY + "\nresourceamount " + resource.getAmount() , 100, 100);
+		+ targetY + "\ncount " + count , 100, 100);
 		}
 		super.render(g);
 	}
