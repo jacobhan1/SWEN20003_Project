@@ -19,15 +19,12 @@ public abstract class Unit extends Sprite implements Movable, Selectable{
 		super(x, y, imageSrc, camera);
 		this.speed = speed;
 		
-		
-		//select then follow
-		/**
-		 * 
-		 */
-//		 this.camera.followSprite(this);
 	} 
+	public double getTargetX() {return targetX;}
+	public double getTargetY() {return targetY;}
+	public double getSpeed() {return speed;}
 	
-	private void resetTarget() {
+	public void resetTarget() {
 		targetX = getX();
 		targetY = getY();		
 	}
@@ -52,6 +49,25 @@ public abstract class Unit extends Sprite implements Movable, Selectable{
 		return selectImage != null;
 	} 
 	
+	public void moves(World world, double targetX, double targetY) {
+		// If we're close to our target, reset to our current position
+		if (World.distance(getX(), getY(), targetX, targetY) <= getSpeed()) {
+			resetTarget();
+		} else {
+			// Calculate the appropriate x and y distances
+			double theta = Math.atan2(targetY - getY(), targetX - getX());
+			double dx = (double)Math.cos(theta) * world.getDelta() * getSpeed();
+			double dy = (double)Math.sin(theta) * world.getDelta() * getSpeed();
+			// Check the tile is free before moving; otherwise, we stop moving
+			if (world.isPositionFree(getX() + dx, getY() + dy)) {
+				setX(getX() + dx);
+				setY(getY() + dy);
+			} else {
+				resetTarget();
+			}
+		}
+	}
+	
 	@Override
 	public void update(World world) throws SlickException {
 		Input input = world.getInput();
@@ -63,22 +79,7 @@ public abstract class Unit extends Sprite implements Movable, Selectable{
 			targetY = getCamera().screenYToGlobalY(input.getMouseY());
 		}
 		
-		// If we're close to our target, reset to our current position
-		if (World.distance(getX(), getY(), targetX, targetY) <= speed) {
-			resetTarget();
-		} else {
-			// Calculate the appropriate x and y distances
-			double theta = Math.atan2(targetY - getY(), targetX - getX());
-			double dx = (double)Math.cos(theta) * world.getDelta() * speed;
-			double dy = (double)Math.sin(theta) * world.getDelta() * speed;
-			// Check the tile is free before moving; otherwise, we stop moving
-			if (world.isPositionFree(getX() + dx, getY() + dy)) {
-				setX(getX() + dx);
-				setY(getY() + dy);
-			} else {
-				resetTarget();
-			}
-		}
+		moves(world, targetX, targetY);
 	}
 	
 	@Override

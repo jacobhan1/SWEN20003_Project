@@ -1,4 +1,5 @@
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -11,11 +12,26 @@ public abstract class Resource extends Sprite implements Removable{
 	}
 	
 	public int getAmount() {return amountLeft;}
-	public void setAmount(int dx) {amountLeft -= dx;}
+	public void setAmount(int dx) {amountLeft = amountLeft - dx;}
 	
 	
 	@Override
-	public void remove(World world) {}
+	public void remove() {
+		setImage(null);
+	}
 	
+	@Override
+	public void update(World world) throws SlickException {
+		super.update(world);
+		if(amountLeft == 0) {
+			remove();
+		}
+	}
 	
+	@Override
+	public void render(Graphics g) {
+		if(getImage() != null) {
+			getImage().drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()) );
+		}
+	}
 }

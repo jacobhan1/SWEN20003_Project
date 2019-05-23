@@ -28,9 +28,7 @@ public abstract class Sprite {
 	public Camera getCamera() {return camera;}
 	public void setX(double x) {this.x = x;}
 	public void setY(double y) {this.y = y;}
-	public void setImage(Image image)  {
-		
-	}
+	public void setImage(Image image)  { this.image = image;}
 
 	
 	public void update(World world) throws SlickException{ 
@@ -43,9 +41,7 @@ public abstract class Sprite {
 			
 			// select the Unit or Building
 			for (Sprite sprite : world.getSprites()) {
-				if (sprite instanceof Selectable && sprite.getX() < mouseX + 32 
-						&& sprite.getX() > mouseX - 32 
-						&& sprite.getY() < mouseY + 32 && sprite.getY() > mouseY - 32 ) {
+				if (World.distance(sprite.getX(), sprite.getY(), mouseX, mouseY) < World.DISTANCE ) {
 					
 					// if it is Unit, deselect any Building and then select Unit itself
 					// or if it is building, deselect any Unit and then select building itself

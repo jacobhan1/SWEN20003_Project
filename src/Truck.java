@@ -26,7 +26,7 @@ public class Truck extends Unit implements Creatable, Removable {
 	}
 	
 	@Override
-	public void remove(World world) {}
+	public void remove() {}
 	
 	@Override
 	public void render(Graphics g) {

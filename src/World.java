@@ -14,6 +14,7 @@ import org.newdawn.slick.tiled.TiledMap;
  * These classes are provided simply as a starting point. You are not strictly required to use them.
  */
 public class World {
+	public static final int DISTANCE = 32;
 	private static final String MAP_PATH = "assets/main.tmx";
 	private static final String SOLID_PROPERTY = "solid";
 	private static final int INDEX_OBJECT = 0;
@@ -38,6 +39,8 @@ public class World {
 	public Camera getCamera() {return camera;}
 	public double getMapWidth() {return map.getWidth() * map.getTileWidth();}
 	public double getMapHeight() {return map.getHeight() * map.getTileHeight();}
+	public void setMetal(int metal) {this.metal += metal;}
+	public void setUnobtainium(int unobtainium) {this.unobtainium += unobtainium;}
 	public ArrayList<Sprite> getSprites() {return sprites;}
 	public boolean isPositionFree(double x, double y) {
 		int tileId = map.getTileId(worldXToTileX(x), worldYToTileY(y), 0);
@@ -106,6 +109,7 @@ public class World {
 				sprite.getCamera().followSprite(sprite);
 				sprite.getCamera().update(this);
 			}
+			
 		}
 	}
 		

@@ -5,7 +5,7 @@ import org.newdawn.slick.SlickException;
 
 public class CommandCenter extends Building implements Creatable {
 	private static final String CENTER_PATH = "assets/buildings/command_centre.png";
-	
+
 	public CommandCenter(double x, double y, Camera camera) throws SlickException{
 		super(x, y, CENTER_PATH, camera);
 	}
@@ -20,11 +20,13 @@ public class CommandCenter extends Building implements Creatable {
 			}
 		return null;
 	}
+	@Override
 	public void update(World world) throws SlickException{ 
 		super.update(world);
 		Input input = world.getInput();
 		
-		if(isSelect() && input.isKeyPressed(input.KEY_1)) {
+		if(isSelect() && input.isKeyPressed(input.KEY_1) ) {
+		
 			try {
 				world.sprites.wait(100);
 			} catch (InterruptedException e) {
@@ -32,6 +34,14 @@ public class CommandCenter extends Building implements Creatable {
 				e.printStackTrace();
 			}
 			world.sprites.add(new Engineer(getX(), getY(), getCamera()));
+		}
+	}
+	
+	@Override
+	public void render(Graphics g) {
+		super.render(g);
+		if (isSelect()) {
+		g.drawString("1- create factory\n2- create builder\n3- create engineer", 32, 100);
 		}
 	}
 }
