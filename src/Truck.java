@@ -26,11 +26,16 @@ public class Truck extends Unit implements Creatable, Removable {
 	}
 	
 	@Override
-	public void remove() {}
+	public void remove() {setImage(null);}
 	
 	@Override
 	public void render(Graphics g) {
-		super.render(g);
-		g.drawString("1- create command centre", 100, 32);
+		if(getImage() != null) {
+			getImage().drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()) );
+			if (isSelect()) {
+				g.drawString("1- create command centre", 100, 32);
+			}
+		}
+		
 	}
 }

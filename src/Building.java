@@ -13,6 +13,8 @@ public abstract class Building extends Sprite implements Selectable{
 		
 	}
 	
+	public Image getImage() {return selectImage;}
+	
 	@Override
 	public boolean isSelect() {
 		return selectImage != null;
@@ -33,7 +35,7 @@ public abstract class Building extends Sprite implements Selectable{
 	@Override
 	public void render(Graphics g) {
 		if(isSelect()) {
-		selectImage.drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
+			selectImage.drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
 		}
 		super.render(g);
 	}

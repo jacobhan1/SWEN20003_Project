@@ -24,5 +24,10 @@ public class Factory extends Building implements Creatable {
 	}
 	
 	@Override
-	public void render(Graphics g) {}
+	public void render(Graphics g) {
+		super.render(g);
+		if (isSelect()) {
+			g.drawString("1- create truck", 32, 100);
+			}
+	}
 }

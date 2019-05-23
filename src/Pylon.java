@@ -38,9 +38,17 @@ public class Pylon extends Building {
 	@Override
 	public void render(Graphics g) {
 		if(activeImage != null) {
-		activeImage.drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()) );
+			if (isSelect()) {
+				getImage().drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
+			}
+			activeImage.drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
+			
 		}else {
+			if (isSelect()) {
+				getImage().drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
+			}
 			super.render(g);		
 		}
+		
 	}
 }

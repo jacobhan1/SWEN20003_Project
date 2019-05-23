@@ -21,7 +21,17 @@ public class World {
 	private static final int INDEX_X = 1;
 	private static final int INDEX_Y = 2;
 	private static final int DISPLAY = 32;
-	
+	// create object needed
+	public static final int UNIT_BUILD_TIME = 5;
+	public static final int FACTORY_BUILD_TIME = 10;
+	public static final int COMMANDCENTRE_BUILD_TIME = 15;
+	public static final int FACTORY_COST_METAL = 100;
+	public static final int SCOUT_COST_METAL = 5;
+	public static final int BUILDER_COST_METAL = 10;
+	public static final int ENGINEER_COST_METAL = 20;
+	public static final int TRUCK_COST_METAL = 150;
+	int count = 1;
+	private Sprite createObject;
 	// all sprites
 	private ArrayList<Sprite> sprites;
 	//private Unit scout;
@@ -42,7 +52,7 @@ public class World {
 	public void setMetal(int metal) {this.metal += metal;}
 	public void setUnobtainium(int unobtainium) {this.unobtainium += unobtainium;}
 	public ArrayList<Sprite> getSprites() {return sprites;}
-	public void setSprites(Sprite sprite) {this.sprites.add(sprite);}
+	public void setSprites(ArrayList<Sprite> sprites) {this.sprites = sprites;}
 	public boolean isPositionFree(double x, double y) {
 		int tileId = map.getTileId(worldXToTileX(x), worldYToTileY(y), 0);
 		return !Boolean.parseBoolean(map.getTileProperty(tileId, SOLID_PROPERTY, "false"));
@@ -92,7 +102,9 @@ public class World {
 		}
 	}
 	
-
+	public void addSprite(Sprite sprite) {
+		sprites.add(sprite);
+	}
 	/**
 	 * Update the movements of all movable sprites and detect collisions.
 	 * @param input The input to control the movement.
@@ -100,24 +112,59 @@ public class World {
 	 * @throws SlickException 
 	 */
 	public void update(Input input, int delta) throws SlickException {
-		
+		String keyPress;
 		lastInput = input;
 		lastDelta = delta;
 		
+		
+		if (lastInput.isKeyPressed(Input.KEY_1)) {  
+			if (createObject != null) {
+				if (createObject instanceof CommandCenter && metal >= SCOUT_COST_METAL) {
+					metal -= SCOUT_COST_METAL;
+					sprites.add(new Scout(createObject.getX(), createObject.getY(), camera));
+				}else if (createObject instanceof Factory && metal >= TRUCK_COST_METAL) {
+					metal -= TRUCK_COST_METAL;
+					sprites.add(new Truck(createObject.getX(), createObject.getY(), camera));
+				}else if (createObject instanceof Builder && metal >= FACTORY_COST_METAL) {
+					metal -= FACTORY_COST_METAL;
+					sprites.add(new Factory(createObject.getX(), createObject.getY(), camera));
+				}else if (createObject instanceof Truck) {
+					((Truck) createObject).remove();
+					sprites.add(new Factory(createObject.getX(), createObject.getY(), camera));
+				}
+			}
+		}else if (lastInput.isKeyPressed(Input.KEY_2)) {
+			if (createObject instanceof CommandCenter && metal >= BUILDER_COST_METAL) {
+				metal -= BUILDER_COST_METAL;
+				sprites.add(new Builder(createObject.getX(), createObject.getY(), camera));
+			}
+		}else if (lastInput.isKeyPressed(Input.KEY_3)) {
+			if (createObject instanceof CommandCenter && metal >= ENGINEER_COST_METAL) {
+				metal -= ENGINEER_COST_METAL;
+				sprites.add(new Engineer(createObject.getX(), createObject.getY(), camera));
+			}
+		}
 		for (Sprite sprite: sprites) {
 			sprite.update(this);
 			if ((sprite instanceof Unit || sprite instanceof Building) && ((Selectable)sprite).isSelect()) {
 				sprite.getCamera().followSprite(sprite);
 				sprite.getCamera().update(this);
 			}
-			
+			if ( sprite instanceof Creatable && ((Selectable)sprite).isSelect()) {
+				createObject = sprite;
+			}
 		}
+		
+		
+				
+		
+		
 	}
 		
 	public void render(Graphics g) {
 		map.render((int)camera.globalXToScreenX(0),
 				   (int)camera.globalYToScreenY(0));
-		g.drawString("Metal:  <" + metal + ">\nUnobtainium:  <" + unobtainium + ">",
+		g.drawString("Metal:  <" + metal + ">\nUnobtainium:  <" + unobtainium + ">\n" + count,
 				DISPLAY, DISPLAY);
 		for(Sprite sprite: sprites) {
 			sprite.render(g);

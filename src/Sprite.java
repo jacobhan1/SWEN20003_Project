@@ -45,21 +45,14 @@ public abstract class Sprite {
 					
 					// if it is Unit, deselect any Building and then select Unit itself
 					// or if it is building, deselect any Unit and then select building itself
-					if (sprite instanceof Unit) {
+					if (sprite instanceof Selectable) {
 						for (Sprite sprites : world.getSprites()) {
-							if (sprites instanceof Building && ((Selectable)sprites).isSelect()) {
+							if (sprites instanceof Selectable && ((Selectable)sprites).isSelect()) {
 								((Selectable)sprites).deSelect();
 							}
 						}
 						((Selectable)sprite).select();
-					}else if(sprite instanceof Building){
-						for (Sprite sprites : world.getSprites()) {
-							if (sprites instanceof Unit && ((Selectable)sprites).isSelect()) {
-								((Selectable)sprites).deSelect();
-							}
-						}
-						((Selectable)sprite).select();
-					}	
+					}
 				}else if (sprite instanceof Selectable && ((Selectable)sprite).isSelect()) {
 					((Selectable)sprite).deSelect();
 					

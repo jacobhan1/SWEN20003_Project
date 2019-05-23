@@ -8,7 +8,7 @@ import org.newdawn.slick.SlickException;
 public class Engineer extends Unit implements Movable{
 	private static final String ENGINEER_PATH = "assets/units/engineer.png";
 	private static final double SPEED = 0.1;
-	private int carryResources = 2;
+	private static int carryResources = 2;
 	private int playerCarryResource = 0;
 	private static final float MINE_TIME = 5000;
 	private Resource resource;
@@ -27,8 +27,10 @@ public class Engineer extends Unit implements Movable{
 	public void update(World world) throws SlickException {
 		Input input = world.getInput();
 		int delta = world.getDelta();
+		if(input.isKeyPressed(Input.KEY_2)) {
+		System.out.println(targetX);}
 		// If the mouse button is being clicked, set the target to the cursor location
-		if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON) && isSelect()) {
+		if (isSelect() && input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
 			
 			targetX = getCamera().screenXToGlobalX(input.getMouseX());
 			targetY = getCamera().screenYToGlobalY(input.getMouseY());
@@ -60,7 +62,6 @@ public class Engineer extends Unit implements Movable{
 				}
 			}
 		}
-		
 		moves(world, targetX, targetY);
 		// find the resource to mine 
 		findMineResource(world.getSprites());

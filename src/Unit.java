@@ -73,7 +73,7 @@ public abstract class Unit extends Sprite implements Movable, Selectable{
 		Input input = world.getInput();
 		
 		// If the mouse button is being clicked, set the target to the cursor location
-		if (input.isMousePressed(Input.MOUSE_RIGHT_BUTTON) && isSelect()) {
+		if (isSelect() && input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
 			
 			targetX = getCamera().screenXToGlobalX(input.getMouseX());
 			targetY = getCamera().screenYToGlobalY(input.getMouseY());

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
@@ -5,7 +7,8 @@ import org.newdawn.slick.SlickException;
 
 public class CommandCenter extends Building implements Creatable {
 	private static final String CENTER_PATH = "assets/buildings/command_centre.png";
-	public float count = 0;
+	private float count = 0;
+	private ArrayList<Sprite> sprites;
 	public CommandCenter(double x, double y, Camera camera) throws SlickException{
 		super(x, y, CENTER_PATH, camera);
 	}
@@ -20,26 +23,31 @@ public class CommandCenter extends Building implements Creatable {
 			}
 		return null;
 	}
+	
+	public boolean isCreate(Input input) {
+		if(isSelect() && input.isKeyPressed(Input.KEY_1)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	@Override
 	public void update(World world) throws SlickException{ 
 		super.update(world);
-		Input input = world.getInput();
-		int delta = world.getDelta();
+		Input input= world.getInput();
 		
-		if(isSelect() && input.isKeyPressed(Input.KEY_2)) {
-			count += delta;
-			if(count > FACTORY_BUILD_TIME) {
-				world.setSprites(create(1, getX(), getY()));
-				
-			}
-		}
+//		Input input = world.getInput();
+//		int delta = world.getDelta();
+//		
+//		isCreate(input);
 	}
 	
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
 		if (isSelect()) {
-		g.drawString("1- create factory\n2- create builder\n3- create engineer\n count" + count, 32, 100);
+		g.drawString("1- create Scout\n2- create builder\n3- create engineer" , 32, 100);
 		}
 	}
 }

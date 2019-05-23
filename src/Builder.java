@@ -6,9 +6,7 @@ import org.newdawn.slick.SlickException;
 public class Builder extends Unit implements Creatable {
 	private static final String BUILDER_PATH = "assets/units/builder.png";
 	private static final double SPEED = 0.1;
-	
-	
-	
+
 	public Builder(double x, double y, Camera camera) throws SlickException {
 		super(x, y, BUILDER_PATH, SPEED, camera );
 	}
@@ -28,6 +26,9 @@ public class Builder extends Unit implements Creatable {
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
-		g.drawString("1- create factory", 32, 100);
+		if (isSelect()) {
+			g.drawString("1- create factory", 32, 100);
+		}
+		
 	}
 }
