@@ -31,27 +31,14 @@ public class Engineer extends Unit implements Movable{
 			
 			targetX = getCamera().screenXToGlobalX(input.getMouseX());
 			targetY = getCamera().screenYToGlobalY(input.getMouseY());
-		}
-		
-		moves(world, targetX, targetY);
-		// find the resource to mine 
-		findMineResource(world.sprites);
-		
-		if (isFindResource()) {
-			findNearestCommandCenter(world.sprites);
-		}
-		if (commandCenter != null)	{
+		}else if (commandCenter != null && resource.getAmount() > 0)	{
 			// arrive resource to mine
 			if((World.distance(getX(), getY(), resource.getX(), resource.getY())) <= 32) {
 				targetX = commandCenter.getX();
 				targetY = commandCenter.getY();
-				if (resource.getAmount() <= 0) {
-					targetX = getX();
-					targetY = getY();
-				}else {
 				playerCarryResource = carryResources;
 				resource.setAmount(carryResources);
-				}
+				
 			// arrive commandCenter to send the resource
 			}else if ((World.distance(getX(), getY(), commandCenter.getX(), commandCenter.getY())) <= 32) {
 				targetX = resource.getX();
@@ -69,6 +56,15 @@ public class Engineer extends Unit implements Movable{
 				}
 			}
 		}
+		
+		moves(world, targetX, targetY);
+		// find the resource to mine 
+		findMineResource(world.sprites);
+		
+		if (isFindResource()) {
+			findNearestCommandCenter(world.sprites);
+		}
+		
 	}
 	/*
 	 * get to know if the resources could be mining anymore.
