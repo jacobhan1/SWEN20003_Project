@@ -41,8 +41,6 @@ public class World {
 	private int lastDelta;
 	private int metal = 0;
 	private int unobtainium = 0;
-	
-	
 
 	public Input getInput() {return lastInput;}
 	public int getDelta() {return lastDelta;}
@@ -110,13 +108,14 @@ public class World {
 	 * @param input The input to control the movement.
 	 * @param delta The delta makes sure the same speed with different FPS.
 	 * @throws SlickException 
+	 * @throws InterruptedException 
 	 */
-	public void update(Input input, int delta) throws SlickException {
+	public void update(Input input, int delta) throws SlickException{
 		String keyPress;
 		lastInput = input;
 		lastDelta = delta;
-		
-		
+		// create sprite into the world
+		//when press 1:
 		if (lastInput.isKeyPressed(Input.KEY_1)) {  
 			if (createObject != null) {
 				if (createObject instanceof CommandCenter && metal >= SCOUT_COST_METAL) {
@@ -133,11 +132,13 @@ public class World {
 					sprites.add(new Factory(createObject.getX(), createObject.getY(), camera));
 				}
 			}
+			// when press 2:
 		}else if (lastInput.isKeyPressed(Input.KEY_2)) {
 			if (createObject instanceof CommandCenter && metal >= BUILDER_COST_METAL) {
 				metal -= BUILDER_COST_METAL;
 				sprites.add(new Builder(createObject.getX(), createObject.getY(), camera));
 			}
+			// when press 3: 
 		}else if (lastInput.isKeyPressed(Input.KEY_3)) {
 			if (createObject instanceof CommandCenter && metal >= ENGINEER_COST_METAL) {
 				metal -= ENGINEER_COST_METAL;
@@ -154,24 +155,17 @@ public class World {
 				createObject = sprite;
 			}
 		}
-		
-		
-				
-		
-		
 	}
 		
 	public void render(Graphics g) {
 		map.render((int)camera.globalXToScreenX(0),
 				   (int)camera.globalYToScreenY(0));
-		g.drawString("Metal:  <" + metal + ">\nUnobtainium:  <" + unobtainium + ">\n" + count,
+		g.drawString("Metal:  <" + metal + ">\nUnobtainium:  <" + unobtainium + ">",
 				DISPLAY, DISPLAY);
 		for(Sprite sprite: sprites) {
 			sprite.render(g);
-
 			}
 	}
-	
 	// This should probably be in a separate static utilities class, but it's a bit excessive for one method.
 	public static double distance(double x1, double y1, double x2, double y2) {
 		return (double)Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));

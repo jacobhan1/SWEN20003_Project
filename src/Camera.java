@@ -33,12 +33,19 @@ public class Camera {
 	}
 	
 	public void update(World world) {
-//		Input input = world.getInput();
-//		int delta = world.getDelta();
-//		double dx = delta * SPEED;
-//		if (input.isKeyPressed(input.KEY_RIGHT)) {
-//			x += dx;
-//		}else {
+		Input input = world.getInput();
+		int delta = world.getDelta();
+		
+		if(input.isKeyDown(Input.KEY_W)) {
+			y -= delta * SPEED;
+		}else if(input.isKeyDown(Input.KEY_S)) {
+			y += delta * SPEED;
+		}else if(input.isKeyDown(Input.KEY_A)) {
+			x -= delta * SPEED;
+		}else if(input.isKeyDown(Input.KEY_D)) {
+			x += delta * SPEED;
+		}else {
+
 		
 		
 		double targetX = target.getX() - App.WINDOW_WIDTH / 2;
@@ -49,7 +56,7 @@ public class Camera {
 		y = Math.min(targetY, world.getMapHeight() - App.WINDOW_HEIGHT);
 		y = Math.max(y, 0);
 //		}
-	
+		}
 	}
 		
 	
