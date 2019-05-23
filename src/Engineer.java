@@ -118,10 +118,10 @@ public class Engineer extends Unit implements Movable{
 	
 	@Override
 	public void render(Graphics g) {
-		if (isFindResource()) {
-		g.drawString("target x " + targetX + "\ntargetY "
-		+ targetY + "\ncount " + count , 100, 100);
-		}
+//		if (isFindResource()) {
+//		g.drawString("target x " + targetX + "\ntargetY "
+//		+ targetY + "\ncount " + count , 100, 100);
+//		}
 		super.render(g);
 	}
 }

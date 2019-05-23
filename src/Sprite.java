@@ -52,7 +52,7 @@ public abstract class Sprite {
 							}
 						}
 						((Selectable)sprite).select();
-					}else {
+					}else if(sprite instanceof Building){
 						for (Sprite sprites : world.getSprites()) {
 							if (sprites instanceof Unit && ((Selectable)sprites).isSelect()) {
 								((Selectable)sprites).deSelect();
