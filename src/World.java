@@ -31,6 +31,7 @@ public class World {
 	public static final int ENGINEER_COST_METAL = 20;
 	public static final int TRUCK_COST_METAL = 150;
 	int count = 1;
+	Sprite followSprite;
 	private Sprite createObject;
 	// all sprites
 	private ArrayList<Sprite> sprites;
@@ -114,6 +115,7 @@ public class World {
 		String keyPress;
 		lastInput = input;
 		lastDelta = delta;
+		camera.update(this);
 		// create sprite into the world
 		//when press 1:
 		if (lastInput.isKeyPressed(Input.KEY_1)) {  
@@ -147,10 +149,6 @@ public class World {
 		}
 		for (Sprite sprite: sprites) {
 			sprite.update(this);
-			if ((sprite instanceof Unit || sprite instanceof Building) && ((Selectable)sprite).isSelect()) {
-				sprite.getCamera().followSprite(sprite);
-				sprite.getCamera().update(this);
-			}
 			if ( sprite instanceof Creatable && ((Selectable)sprite).isSelect()) {
 				createObject = sprite;
 			}
@@ -160,7 +158,7 @@ public class World {
 	public void render(Graphics g) {
 		map.render((int)camera.globalXToScreenX(0),
 				   (int)camera.globalYToScreenY(0));
-		g.drawString("Metal:  <" + metal + ">\nUnobtainium:  <" + unobtainium + ">",
+		g.drawString("Metal:  <" + metal + ">\nUnobtainium:  <" + unobtainium + ">" ,
 				DISPLAY, DISPLAY);
 		for(Sprite sprite: sprites) {
 			sprite.render(g);

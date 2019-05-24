@@ -17,7 +17,9 @@ public class Camera {
 	public void followSprite(Sprite target) {
 		this.target = target;
 	}
-	
+	public double getX() {return x;}
+	public double getY() {return y;}
+
 	public double globalXToScreenX(double x) {
 		return x - this.x;
 	}
@@ -35,29 +37,41 @@ public class Camera {
 	public void update(World world) {
 		Input input = world.getInput();
 		int delta = world.getDelta();
-		
-		if(input.isKeyDown(Input.KEY_W)) {
+		// up, down, left and right
+		if (input.isKeyDown(Input.KEY_W)) {
+			target = null;
 			y -= delta * SPEED;
-		}else if(input.isKeyDown(Input.KEY_S)) {
+			y = detectY(y,world);
+		}else if (input.isKeyDown(Input.KEY_S)) {
+			target = null;
 			y += delta * SPEED;
+			y = detectY(y,world);
 		}else if(input.isKeyDown(Input.KEY_A)) {
+			target = null;
 			x -= delta * SPEED;
+			x = detectX(x,world);
 		}else if(input.isKeyDown(Input.KEY_D)) {
+			target = null;
 			x += delta * SPEED;
-		}else {
-
+			x = detectX(x,world);
+		}else if (target != null ){
 		
-		
-		double targetX = target.getX() - App.WINDOW_WIDTH / 2;
-		double targetY = target.getY() - App.WINDOW_HEIGHT / 2;
-		
-		x = Math.min(targetX, world.getMapWidth() -	 App.WINDOW_WIDTH);
-		x = Math.max(x, 0);
-		y = Math.min(targetY, world.getMapHeight() - App.WINDOW_HEIGHT);
-		y = Math.max(y, 0);
-//		}
+			double targetX = target.getX() - App.WINDOW_WIDTH / 2;
+			double targetY = target.getY() - App.WINDOW_HEIGHT / 2;
+			
+			x = detectX(targetX,world);
+			y = detectY(targetY,world);
 		}
 	}
-		
+	public double detectX(double x, World world) {
+		x = Math.min(x, world.getMapWidth() - App.WINDOW_WIDTH);
+		x = Math.max(x, 0);
+		return x;
+	}
+	public double detectY(double y, World world) {
+		y = Math.min(y, world.getMapHeight() - App.WINDOW_HEIGHT);
+		y = Math.max(y, 0);
+		return y;
+	}
 	
 }
