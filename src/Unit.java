@@ -1,11 +1,9 @@
-import java.util.ArrayList;
-
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-public abstract class Unit extends Sprite implements Movable, Selectable{
+public abstract class Unit extends Sprite implements Selectable{
 	private double speed;
 	// Initially, we don't need to move at all
 	private double targetX = getX();
@@ -38,7 +36,7 @@ public abstract class Unit extends Sprite implements Movable, Selectable{
 	public void select() throws SlickException {
 		selectImage = new Image(HIGHLIGHT);
 	}
-	@Override
+	
 	public void move(double dx, double dy) {
 		setX(getX() + dx);
 		setY(getY() + dy);

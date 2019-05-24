@@ -5,7 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-public class Engineer extends Unit implements Movable{
+public class Engineer extends Unit {
 	private static final String ENGINEER_PATH = "assets/units/engineer.png";
 	private static final double SPEED = 0.1;
 	private static int carryResources = 2;
@@ -38,11 +38,17 @@ public class Engineer extends Unit implements Movable{
 			// arrive resource to mine
 			if((World.distance(getX(), getY(), resource.getX(), resource.getY())) <= 32) {
 				count += delta;
-				if(count > MINE_TIME) {
+				if(count > MINE_TIME && carryResources <= resource.getAmount()) {
 					targetX = commandCenter.getX();
 					targetY = commandCenter.getY();
 					playerCarryResource = carryResources;
 					resource.setAmount(carryResources);
+					count = 0;
+				}else if(count > MINE_TIME && carryResources > resource.getAmount()) {
+					targetX = commandCenter.getX();
+					targetY = commandCenter.getY();
+					playerCarryResource = resource.getAmount();
+					resource.setAmount(resource.getAmount());
 					count = 0;
 				}
 			// arrive commandCenter to send the resource
@@ -55,7 +61,7 @@ public class Engineer extends Unit implements Movable{
 					world.setUnobtainium(playerCarryResource);
 				}
 				playerCarryResource = 0;
-				if (resource.getAmount() <= 0) {
+				if (resource.getAmount() == 0) {
 					targetX = getX();
 					targetY = getY();
 					
@@ -110,20 +116,8 @@ public class Engineer extends Unit implements Movable{
 			}
 		}
 	}
-	
-	
-	
 	private boolean isFindResource() {
 		return resource != null;
-	}
-	
-	@Override
-	public void render(Graphics g) {
-//		if (isFindResource()) {
-//		g.drawString("target x " + targetX + "\ntargetY "
-//		+ targetY + "\ncount " + count , 100, 100);
-//		}
-		super.render(g);
 	}
 }
 	

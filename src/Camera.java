@@ -17,9 +17,7 @@ public class Camera {
 	public void followSprite(Sprite target) {
 		this.target = target;
 	}
-	public double getX() {return x;}
-	public double getY() {return y;}
-
+	
 	public double globalXToScreenX(double x) {
 		return x - this.x;
 	}
@@ -32,6 +30,16 @@ public class Camera {
 	}
 	public double screenYToGlobalY(double y) {
 		return y + this.y;
+	}
+	private double detectX(double x, World world) {
+		x = Math.min(x, world.getMapWidth() - App.WINDOW_WIDTH);
+		x = Math.max(x, 0);
+		return x;
+	}
+	private double detectY(double y, World world) {
+		y = Math.min(y, world.getMapHeight() - App.WINDOW_HEIGHT);
+		y = Math.max(y, 0);
+		return y;
 	}
 	
 	public void update(World world) {
@@ -54,7 +62,7 @@ public class Camera {
 			target = null;
 			x += delta * SPEED;
 			x = detectX(x,world);
-		}else if (target != null ){
+		}else if (target != null && ((Selectable)target).isSelect() ){
 		
 			double targetX = target.getX() - App.WINDOW_WIDTH / 2;
 			double targetY = target.getY() - App.WINDOW_HEIGHT / 2;
@@ -63,15 +71,4 @@ public class Camera {
 			y = detectY(targetY,world);
 		}
 	}
-	public double detectX(double x, World world) {
-		x = Math.min(x, world.getMapWidth() - App.WINDOW_WIDTH);
-		x = Math.max(x, 0);
-		return x;
-	}
-	public double detectY(double y, World world) {
-		y = Math.min(y, world.getMapHeight() - App.WINDOW_HEIGHT);
-		y = Math.max(y, 0);
-		return y;
-	}
-	
 }

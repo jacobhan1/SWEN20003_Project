@@ -13,14 +13,8 @@ public class Factory extends Building implements Creatable {
 	}
 	
 	@Override
-	public Truck create(int input, double x, double y) {
-		
-//			try {
-//				return new Truck(getX(), getY()£¬Camera camera);
-//			} catch (SlickException e) {
-//				e.printStackTrace();
-//			}
-		return null;
+	public Truck create(String input, double x, double y) throws SlickException {
+		return new Truck(getX(), getY(), getCamera());
 	}
 	
 	@Override

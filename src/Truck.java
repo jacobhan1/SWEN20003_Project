@@ -13,15 +13,12 @@ public class Truck extends Unit implements Creatable, Removable {
 	}
 	
 	@Override
-	public CommandCenter create(int input, double x, double y) {
-		
-		//if (input.isKeyDown(Input.KEY_1)) {
+	public CommandCenter create(String input, double x, double y) {
 			try {
 				return new CommandCenter(getX(), getY(), getCamera());
 			} catch (SlickException e) {
 				e.printStackTrace();
 			}
-		//}
 		return null;
 	}
 	
@@ -31,9 +28,10 @@ public class Truck extends Unit implements Creatable, Removable {
 	@Override
 	public void render(Graphics g) {
 		if(getImage() != null) {
+			super.render(g);
 			getImage().drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()) );
 			if (isSelect()) {
-				g.drawString("1- create command centre", 100, 32);
+				g.drawString("1- create command centre", 32, 100);
 			}
 		}
 		

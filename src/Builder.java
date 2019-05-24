@@ -12,14 +12,8 @@ public class Builder extends Unit implements Creatable {
 	}
 	
 	@Override
-	public Factory create(int input, double x, double y) {
-			
-			try {
-				return new Factory(x, y, getCamera());
-			} catch (SlickException e) {
-				e.printStackTrace();
-			}
-		return null;
+	public Factory create(String input, double x, double y) throws SlickException{
+		return new Factory(x, y, getCamera());
 	}
 	
 	

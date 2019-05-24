@@ -1,10 +1,10 @@
-import java.util.ArrayList;
-
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-
+/**
+ * this abstract class contains all sprites common attributes and methods.
+ */
 public abstract class Sprite {
 	// x, y are global coordinates
 	private double x;
@@ -42,7 +42,6 @@ public abstract class Sprite {
 			// select the Unit or Building
 			for (Sprite sprite : world.getSprites()) {
 				if (World.distance(sprite.getX(), sprite.getY(), mouseX, mouseY) < World.DISTANCE ) {
-					
 					// if it is Unit, deselect any Building and then select Unit itself
 					// or if it is building, deselect any Unit and then select building itself
 					if (sprite instanceof Selectable) {
@@ -60,7 +59,6 @@ public abstract class Sprite {
 				}
 			}
 		}
-		
 	}
 	
 	public void render(Graphics g) {

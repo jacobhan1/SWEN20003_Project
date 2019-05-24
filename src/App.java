@@ -13,8 +13,9 @@ import org.newdawn.slick.Input;
 /**
  * Main class for the game.
  * Handles initialisation, input and rendering.
+ * use project 1 sample code to build project 2
  * 
- * You are unlikely to need to change this class, but you can if you so choose.
+ * 
  */
 public class App extends BasicGame {
     /** window width, in pixels */

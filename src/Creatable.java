@@ -1,6 +1,7 @@
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
 /**
  * @author ASUS
  *
@@ -8,7 +9,7 @@ import org.newdawn.slick.Input;
 public interface Creatable {
 	
 	
-	public Sprite create(int input, double x, double y);
+	public Sprite create(String input, double x, double y) throws SlickException;
 	
 	public void render(Graphics g);
 }

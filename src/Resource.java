@@ -22,7 +22,6 @@ public abstract class Resource extends Sprite implements Removable{
 	
 	@Override
 	public void update(World world) throws SlickException {
-		super.update(world);
 		if(amountLeft == 0) {
 			remove();
 		}
