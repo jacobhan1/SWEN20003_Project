@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
-
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -10,7 +9,6 @@ import org.newdawn.slick.tiled.TiledMap;
 /**
  * This class should be used to contain all the different objects in your game world, 
  * and schedule their interactions.
- * 
  */
 public class World {
 	public static final int DISTANCE = 32;
@@ -59,16 +57,13 @@ public class World {
 	 * @param input The input to control the movement.
 	 * @param delta The delta makes sure the same speed with different FPS.
 	 * @throws SlickException 
-	 *  
 	 */
 	public void update(Input input, int delta) throws SlickException{
 		lastInput = input;
 		lastDelta = delta;
 		camera.update(this);
 		inputChange(input);
-		// create sprite into the world
-		//when press 1:
-		// give something true and when added then give false
+		// create sprite into the world, press KEY_1:
 		if (input1) {  
 			if (createObject != null) {
 				if (createObject instanceof CommandCenter) {
@@ -81,17 +76,18 @@ public class World {
 					addSprite(createObject, 0, COMMANDCENTRE_BUILD_TIME, "input1");
 				}
 			}
-			// when press 2:
+		// when press KEY_2:
 		}else if (input2) {
 			if (createObject instanceof CommandCenter) {
 				addSprite(createObject, BUILDER_COST_METAL, UNIT_BUILD_TIME, "input2");
 			}
-			// when press 3: 
+		// when press KEY_3: 
 		}else if (input3) {
 			if (createObject instanceof CommandCenter) {
 				addSprite(createObject, ENGINEER_COST_METAL, UNIT_BUILD_TIME, "input3");
 			}
 		}
+		// update all the sprites in the world
 		for (Sprite sprite: sprites) {
 			sprite.update(this);
 			if ( sprite instanceof Creatable && ((Selectable)sprite).isSelect()) {
@@ -142,6 +138,7 @@ public class World {
 		int tileId = map.getTileId(worldXToTileX(x), worldYToTileY(y), 0);
 		return !Boolean.parseBoolean(map.getTileProperty(tileId, SOLID_PROPERTY, "false"));
 	}
+	// assign all the input to false
 	private void inputFalse(String input) {
 		switch (input) {
 			case "input1": input1 = false;
@@ -149,6 +146,7 @@ public class World {
 			case "input3": input3 = false;
 		}
 	}
+	// if the costMetal and createTime available, then addSprite to the world
 	private void addSprite(Sprite sprite, int costMetal, int createTime, String input) throws SlickException {
 		if(sprite instanceof Removable) {
 			if (count < createTime) {
@@ -171,6 +169,7 @@ public class World {
 			}
 		}
 	}
+	// record the key press
 	private void inputChange(Input input) {
 		if (input.isKeyPressed(Input.KEY_1)) {
 			input1 = true;
