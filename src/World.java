@@ -132,18 +132,53 @@ public class World {
 	public static double distance(double x1, double y1, double x2, double y2) {
 		return (double)Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 	}
-	
+	/**
+	 * get the input value.
+	 * @return input value
+	 */
 	public Input getInput() {return lastInput;}
+	/**
+	 * get the delta value.
+	 * @return delta value
+	 */
 	public int getDelta() {return lastDelta;}
+	/** 
+	 * get the player's metal value.
+	 * @return player's metal value
+	 */
 	public int getMetal() {return metal;}
+	/** 
+	 * get the camera.
+	 * @return camera
+	 */
 	public Camera getCamera() {return camera;}
+	/**
+	 * get the map's width.
+	 * @return map's width
+	 */
 	public double getMapWidth() {return map.getWidth() * map.getTileWidth();}
+	/**
+	 * get the map's height.
+	 * @return map's height
+	 */
 	public double getMapHeight() {return map.getHeight() * map.getTileHeight();}
+	/**
+	 * set the metal value.
+	 * @param metal player's metal value
+	 */
 	public void setMetal(int metal) {this.metal += metal;}
+	/**
+	 * set the unobtainium value.
+	 * @param unobtainium player's unobtainium value
+	 */
 	public void setUnobtainium(int unobtainium) {this.unobtainium += unobtainium;}
+	/**
+	 * get all the world's sprites
+	 * @return arrayList contains all the world's sprites
+	 */
 	public ArrayList<Sprite> getSprites() {return sprites;}
 	/**
-	 * judge if the point is solid
+	 * judge if the point is solid.
 	 * @param x point's x coordinate
 	 * @param y point's y coordinate
 	 * @return if it is solid, return true, else return false
