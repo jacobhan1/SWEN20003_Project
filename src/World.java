@@ -65,29 +65,40 @@ public class World {
 		inputChange(input);
 		// create sprite into the world, press KEY_1:
 		if (input1) {  
-			
-			if (createObject instanceof CommandCenter) {
-				addSprite(createObject, SCOUT_COST_METAL, UNIT_BUILD_TIME, "input1");
-			}else if (createObject instanceof Factory) {
-				addSprite(createObject, TRUCK_COST_METAL, UNIT_BUILD_TIME, "input1");
-			}else if (createObject instanceof Builder) {
-				addSprite(createObject, FACTORY_COST_METAL, FACTORY_BUILD_TIME, "input1");
-			}else if (createObject instanceof Truck) {
-				addSprite(createObject, 0, COMMANDCENTRE_BUILD_TIME, "input1");
+			if(createObject == null) {
+				inputFalse("input1");
+			} else { 
+				if (createObject instanceof CommandCenter) {
+					addSprite(createObject, SCOUT_COST_METAL, UNIT_BUILD_TIME, "input1");
+				}else if (createObject instanceof Factory) {
+					addSprite(createObject, TRUCK_COST_METAL, UNIT_BUILD_TIME, "input1");
+				}else if (createObject instanceof Builder) {
+					addSprite(createObject, FACTORY_COST_METAL, FACTORY_BUILD_TIME, "input1");
+				}else if (createObject instanceof Truck) {
+					addSprite(createObject, 0, COMMANDCENTRE_BUILD_TIME, "input1");
+				}
+				createObject = null;
 			}
-			createObject = null;
 		// when press KEY_2:
 		}else if (input2) {
-			if (createObject instanceof CommandCenter) {
-				addSprite(createObject, BUILDER_COST_METAL, UNIT_BUILD_TIME, "input2");
+			if(createObject == null) {
+				inputFalse("input2");
+			} else {
+				if (createObject instanceof CommandCenter) {
+					addSprite(createObject, BUILDER_COST_METAL, UNIT_BUILD_TIME, "input2");
+				}
+				createObject = null;
 			}
-			createObject = null;
 		// when press KEY_3: 
 		}else if (input3) {
-			if (createObject instanceof CommandCenter) {
-				addSprite(createObject, ENGINEER_COST_METAL, UNIT_BUILD_TIME, "input3");
+			if(createObject == null) {
+				inputFalse("input3");
+			} else {
+				if (createObject instanceof CommandCenter) {
+					addSprite(createObject, ENGINEER_COST_METAL, UNIT_BUILD_TIME, "input3");
+				}
+				createObject = null;
 			}
-			createObject = null;
 		}
 		// update all the sprites in the world
 		for (Sprite sprite: sprites) {
