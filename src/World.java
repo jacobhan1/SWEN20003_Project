@@ -65,32 +65,34 @@ public class World {
 		inputChange(input);
 		// create sprite into the world, press KEY_1:
 		if (input1) {  
-			if (createObject != null) {
-				if (createObject instanceof CommandCenter) {
-					addSprite(createObject, SCOUT_COST_METAL, UNIT_BUILD_TIME, "input1");
-				}else if (createObject instanceof Factory) {
-					addSprite(createObject, TRUCK_COST_METAL, UNIT_BUILD_TIME, "input1");
-				}else if (createObject instanceof Builder) {
-					addSprite(createObject, FACTORY_COST_METAL, FACTORY_BUILD_TIME, "input1");
-				}else if (createObject instanceof Truck) {
-					addSprite(createObject, 0, COMMANDCENTRE_BUILD_TIME, "input1");
-				}
+			
+			if (createObject instanceof CommandCenter) {
+				addSprite(createObject, SCOUT_COST_METAL, UNIT_BUILD_TIME, "input1");
+			}else if (createObject instanceof Factory) {
+				addSprite(createObject, TRUCK_COST_METAL, UNIT_BUILD_TIME, "input1");
+			}else if (createObject instanceof Builder) {
+				addSprite(createObject, FACTORY_COST_METAL, FACTORY_BUILD_TIME, "input1");
+			}else if (createObject instanceof Truck) {
+				addSprite(createObject, 0, COMMANDCENTRE_BUILD_TIME, "input1");
 			}
+			createObject = null;
 		// when press KEY_2:
 		}else if (input2) {
 			if (createObject instanceof CommandCenter) {
 				addSprite(createObject, BUILDER_COST_METAL, UNIT_BUILD_TIME, "input2");
 			}
+			createObject = null;
 		// when press KEY_3: 
 		}else if (input3) {
 			if (createObject instanceof CommandCenter) {
 				addSprite(createObject, ENGINEER_COST_METAL, UNIT_BUILD_TIME, "input3");
 			}
+			createObject = null;
 		}
 		// update all the sprites in the world
 		for (Sprite sprite: sprites) {
 			sprite.update(this);
-			if ( sprite instanceof Creatable && ((Selectable)sprite).isSelect()) {
+			if (sprite instanceof Creatable && ((Selectable)sprite).isSelect()) {
 				createObject = sprite;
 			}
 		}
@@ -122,6 +124,7 @@ public class World {
 	
 	public Input getInput() {return lastInput;}
 	public int getDelta() {return lastDelta;}
+	public int getMetal() {return metal;}
 	public Camera getCamera() {return camera;}
 	public double getMapWidth() {return map.getWidth() * map.getTileWidth();}
 	public double getMapHeight() {return map.getHeight() * map.getTileHeight();}
@@ -159,7 +162,7 @@ public class World {
 		}else {
 			if (metal >= costMetal && count < createTime) {
 				count += lastDelta;
-			}else if (metal < costMetal && count < createTime) {
+			}else if (metal < costMetal) {
 				inputFalse(input);
 			}else if (metal >= costMetal && count >= createTime) {
 				count = 0;

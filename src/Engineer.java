@@ -36,15 +36,15 @@ public class Engineer extends Unit {
 			targetY = getCamera().screenYToGlobalY(input.getMouseY());
 		}else if (commandCenter != null && resource.getAmount() > 0)	{
 			// arrive resource to mine
-			if((World.distance(getX(), getY(), resource.getX(), resource.getY())) <= 32) {
+			if ((World.distance(getX(), getY(), resource.getX(), resource.getY())) <= 32) {
 				count += delta;
-				if(count > MINE_TIME && carryResources <= resource.getAmount()) {
+				if (count > MINE_TIME && carryResources <= resource.getAmount()) {
 					targetX = commandCenter.getX();
 					targetY = commandCenter.getY();
 					playerCarryResource = carryResources;
 					resource.setAmount(carryResources);
 					count = 0;
-				}else if(count > MINE_TIME && carryResources > resource.getAmount()) {
+				}else if (count > MINE_TIME && carryResources > resource.getAmount()) {
 					targetX = commandCenter.getX();
 					targetY = commandCenter.getY();
 					playerCarryResource = resource.getAmount();
@@ -55,7 +55,7 @@ public class Engineer extends Unit {
 			}else if ((World.distance(getX(), getY(), commandCenter.getX(), commandCenter.getY())) <= 32) {
 				targetX = resource.getX();
 				targetY = resource.getY();
-				if(resource instanceof Metal) {
+				if (resource instanceof Metal) {
 					world.setMetal(playerCarryResource);
 				}else {
 					world.setUnobtainium(playerCarryResource);
