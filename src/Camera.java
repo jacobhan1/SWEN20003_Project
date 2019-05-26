@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 import org.newdawn.slick.Input;
 
 /**
@@ -13,35 +11,11 @@ public class Camera {
 	private double y = 300;
 	private Sprite target;
 	private final static double SPEED= 0.4;
-	
-	public void followSprite(Sprite target) {
-		this.target = target;
-	}
-	
-	public double globalXToScreenX(double x) {
-		return x - this.x;
-	}
-	public double globalYToScreenY(double y) {
-		return y - this.y;
-	}
 
-	public double screenXToGlobalX(double x) {
-		return x + this.x;
-	}
-	public double screenYToGlobalY(double y) {
-		return y + this.y;
-	}
-	private double detectX(double x, World world) {
-		x = Math.min(x, world.getMapWidth() - App.WINDOW_WIDTH);
-		x = Math.max(x, 0);
-		return x;
-	}
-	private double detectY(double y, World world) {
-		y = Math.min(y, world.getMapHeight() - App.WINDOW_HEIGHT);
-		y = Math.max(y, 0);
-		return y;
-	}
-	
+	/**
+	 * move left,right,up and down when press "A,D,W,s", or follow the selected sprite
+	 * @param world game world
+	 */
 	public void update(World world) {
 		Input input = world.getInput();
 		int delta = world.getDelta();
@@ -71,4 +45,73 @@ public class Camera {
 			y = detectY(targetY,world);
 		}
 	}
+	
+	/**
+	 * follow which selected sprite
+	 * @param target selected sprite in the world
+	 */
+	public void followSprite(Sprite target) {
+		this.target = target;
+	}
+	
+	/**
+	 * global x coordinate to screen x coordinate
+	 * @param x global x coordinate
+	 * @return screen x coordinate
+	 */
+	public double globalXToScreenX(double x) {
+		return x - this.x;
+	}
+	
+	/**
+	 * global y coordinate to screen y coordinate
+	 * @param y global y coordinate
+	 * @return screen y coordinate
+	 */
+	public double globalYToScreenY(double y) {
+		return y - this.y;
+	}
+
+	/**
+	 * screen x coordinate to global x coordinate
+	 * @param x screen x coordinate
+	 * @return global x coordinate
+	 */
+	public double screenXToGlobalX(double x) {
+		return x + this.x;
+	}
+	
+	/**
+	 * screen y coordinate to global y coordinate
+	 * @param y screen y coordinate
+	 * @return global y coordinate
+	 */
+	public double screenYToGlobalY(double y) {
+		return y + this.y;
+	}
+	
+	/**
+	 * detect if x need to be change in the world, return the x value
+	 * @param x camera x coordinate
+	 * @param world game world
+	 * @return update camera x coordinate
+	 */
+	private double detectX(double x, World world) {
+		x = Math.min(x, world.getMapWidth() - App.WINDOW_WIDTH);
+		x = Math.max(x, 0);
+		return x;
+	}
+	
+	/**
+	 * detect if y need to be change in the world, return the y value 
+	 * @param y camera y coordinate
+	 * @param world game world
+	 * @return update camera y coordinate
+	 */
+	private double detectY(double y, World world) {
+		y = Math.min(y, world.getMapHeight() - App.WINDOW_HEIGHT);
+		y = Math.max(y, 0);
+		return y;
+	}
+	
 }
