@@ -12,6 +12,7 @@ public abstract class Sprite {
 	private Camera camera;
 	// sprites' image
 	private Image image;
+	
 	/**
 	 * define all the sprite common attribute
 	 * @param x sprite 
@@ -28,42 +29,6 @@ public abstract class Sprite {
 		this.camera = camera;
 	}
 	
-	 /**
-	  * get sprite's x coordinate
-	  * @return x coordinate
-	  */
-	public double getX() {return x;}
-	/**
-	 * get sprite's y coordinate
-	 * @return y coordinate
-	 */
-	public double getY() { return y;}
-	/**
-	 * get sprite's image
-	 * @return sprite's image
-	 */
-	public Image getImage() {return image;}
-	/**
-	 * get camera
-	 * @return camera
-	 */
-	public Camera getCamera() {return camera;}
-	/**
-	 * set sprite's x coordinate
-	 * @param x sprite's x coordinate
-	 */
-	public void setX(double x) {this.x = x;}
-	/**
-	 * set sprite's y coordinate
-	 * @param y  sprite's y coordinate
-	 */
-	public void setY(double y) {this.y = y;}
-	/**
-	 * set sprite's  image
-	 * @param image sprite's image
-	 */
-	public void setImage(Image image)  { this.image = image;}
-
 	/**
 	 * select sprite in the world 
 	 * @param world game world
@@ -106,6 +71,47 @@ public abstract class Sprite {
 	public void render(Graphics g) {
 		image.drawCentered((int)camera.globalXToScreenX(x), 
 				(int)camera.globalYToScreenY(y));
-		
 	}
+	
+	 /**
+	  * get sprite's x coordinate
+	  * @return x coordinate
+	  */
+	public double getX() {return x;}
+	
+	/**
+	 * get sprite's y coordinate
+	 * @return y coordinate
+	 */
+	public double getY() { return y;}
+	
+	/**
+	 * get sprite's image
+	 * @return sprite's image
+	 */
+	public Image getImage() {return image;}
+	
+	/**
+	 * get camera
+	 * @return camera
+	 */
+	public Camera getCamera() {return camera;}
+	
+	/**
+	 * set sprite's x coordinate
+	 * @param x sprite's x coordinate
+	 */
+	public void setX(double x) {this.x = x;}
+	
+	/**
+	 * set sprite's y coordinate
+	 * @param y  sprite's y coordinate
+	 */
+	public void setY(double y) {this.y = y;}
+	
+	/**
+	 * set sprite's  image
+	 * @param image sprite's image
+	 */
+	public void setImage(Image image)  { this.image = image;}
 }
