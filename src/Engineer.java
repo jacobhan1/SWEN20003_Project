@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -15,14 +13,24 @@ public class Engineer extends Unit {
 	private CommandCenter commandCenter;
 	private double targetX = getX();
 	private double targetY = getY();
-	public float count = 0;
+	private float count = 0;
 	
+	/**
+	 * engineer constructor
+	 * @param x engineer's x coordinate
+	 * @param y engineer's y coordinate
+	 * @param camera world camera
+	 * @throws SlickException
+	 */
 	public Engineer(double x, double y, Camera camera) throws SlickException {
 		super(x, y, ENGINEER_PATH, SPEED, camera);
 	}
-	public void setCarryResource(int add) {carryResources += add;}
-	public int getCarryResource() {return carryResources;}
 	
+	/**
+	 * when engineer moves to resources, it will mine 5 seconds and automatically go to the near commandCenter
+	 * and then go back to resource to mine, repeat the operation until the resources is removed.
+	 * @param world game world
+	 */
 	@Override
 	public void update(World world) throws SlickException {
 		Input input = world.getInput();
@@ -36,7 +44,7 @@ public class Engineer extends Unit {
 			targetY = getCamera().screenYToGlobalY(input.getMouseY());
 		}else if (commandCenter != null && resource.getAmount() > 0)	{
 			// arrive resource to mine
-			if ((World.distance(getX(), getY(), resource.getX(), resource.getY())) <= 32) {
+			if ((World.distance(getX(), getY(), resource.getX(), resource.getY())) <= World.DISTANCE) {
 				count += delta;
 				if (count > MINE_TIME && carryResources <= resource.getAmount()) {
 					targetX = commandCenter.getX();
@@ -75,22 +83,21 @@ public class Engineer extends Unit {
 		if (isFindResource()) {
 			findNearestCommandCenter(world.getSprites());
 		}
-		
-	}
-	/*
-	 * get to know if the resources could be mining anymore.
-	 */
-	private boolean isMineAvailable(Resource resource) {
-			return resource.getAmount() != 0;
 	}
 	
-	/*
-	 * mine resources each time 
+	/**
+	 * set the engineer's carry resource amount
+	 * @param add the more added when pylon is active 
 	 */
-	private void mine(Resource resource) {
-		resource.setAmount(carryResources);
-	}
+	public void setCarryResource(int add) {carryResources += add;}
 	
+	/**
+	 * get the engineer's current could carry resource's amount.
+	 * @return engineer's carry resource amount
+	 */
+	public int getCarryResource() {return carryResources;}
+	
+	// find the near the engineer's commandCenter
 	private void findNearestCommandCenter(ArrayList<Sprite> sprites) {
 		double min = Double.POSITIVE_INFINITY;
 		HashMap<Sprite, Double> commandCenter = new HashMap<Sprite, Double>();
@@ -107,6 +114,8 @@ public class Engineer extends Unit {
 			}
 		}
 	}
+	
+	// fine mine resources
 	private void findMineResource(ArrayList<Sprite> sprites) {
 		for (Sprite sprite: sprites) {
 			if(sprite instanceof Resource && (World.distance(
@@ -116,6 +125,8 @@ public class Engineer extends Unit {
 			}
 		}
 	}
+	
+	// if find resource, return true.
 	private boolean isFindResource() {
 		return resource != null;
 	}

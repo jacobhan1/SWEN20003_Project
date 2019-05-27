@@ -14,9 +14,11 @@ public class World {
 	public static final int DISTANCE = 32;
 	private static final String MAP_PATH = "assets/main.tmx";
 	private static final String SOLID_PROPERTY = "solid";
+	// csv index: 0,1,2 represent object, x coordinate and y coordinate
 	private static final int INDEX_OBJECT = 0;
 	private static final int INDEX_X = 1;
 	private static final int INDEX_Y = 2;
+	// display position
 	private static final int DISPLAY = 32;
 	// create object needed
 	public static final int UNIT_BUILD_TIME = 5000;
@@ -108,6 +110,7 @@ public class World {
 			}
 		}
 	}
+	
 	/**
 	 * render the whole world 
 	 * @param g render the player's metal and unobtainium amount
@@ -121,6 +124,7 @@ public class World {
 			sprite.render(g);
 			}
 	}
+	
 	/**
 	 * calculate distance between sprite1 and sprite2 
 	 * @param x1 sprite1 x coordinate
@@ -132,51 +136,61 @@ public class World {
 	public static double distance(double x1, double y1, double x2, double y2) {
 		return (double)Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 	}
+	
 	/**
 	 * get the input value.
 	 * @return input value
 	 */
 	public Input getInput() {return lastInput;}
+	
 	/**
 	 * get the delta value.
 	 * @return delta value
 	 */
 	public int getDelta() {return lastDelta;}
+	
 	/** 
 	 * get the player's metal value.
 	 * @return player's metal value
 	 */
 	public int getMetal() {return metal;}
+	
 	/** 
 	 * get the camera.
 	 * @return camera
 	 */
 	public Camera getCamera() {return camera;}
+	
 	/**
 	 * get the map's width.
 	 * @return map's width
 	 */
 	public double getMapWidth() {return map.getWidth() * map.getTileWidth();}
+	
 	/**
 	 * get the map's height.
 	 * @return map's height
 	 */
 	public double getMapHeight() {return map.getHeight() * map.getTileHeight();}
+	
 	/**
 	 * set the metal value.
 	 * @param metal player's metal value
 	 */
 	public void setMetal(int metal) {this.metal += metal;}
+	
 	/**
 	 * set the unobtainium value.
 	 * @param unobtainium player's unobtainium value
 	 */
 	public void setUnobtainium(int unobtainium) {this.unobtainium += unobtainium;}
+	
 	/**
 	 * get all the world's sprites
 	 * @return arrayList contains all the world's sprites
 	 */
 	public ArrayList<Sprite> getSprites() {return sprites;}
+	
 	/**
 	 * judge if the point is solid.
 	 * @param x point's x coordinate
@@ -187,6 +201,7 @@ public class World {
 		int tileId = map.getTileId(worldXToTileX(x), worldYToTileY(y), 0);
 		return !Boolean.parseBoolean(map.getTileProperty(tileId, SOLID_PROPERTY, "false"));
 	}
+	
 	// assign all the input to false
 	private void inputFalse(String input) {
 		switch (input) {
@@ -195,6 +210,7 @@ public class World {
 			case "input3": input3 = false;
 		}
 	}
+	
 	// if the costMetal and createTime available, then addSprite to the world
 	private void addSprite(Sprite sprite, int costMetal, int createTime, String input) throws SlickException {
 		if(sprite instanceof Removable) {
@@ -218,6 +234,7 @@ public class World {
 			}
 		}
 	}
+	
 	// record the key press
 	private void inputChange(Input input) {
 		if (input.isKeyPressed(Input.KEY_1)) {
@@ -228,6 +245,7 @@ public class World {
 			input3 = true;
 		}
 	}
+	
 	//read csv file to init objects
 	private void readCsv() {
 		sprites = new ArrayList<>();
@@ -266,9 +284,11 @@ public class World {
 			e.printStackTrace();
 		}
 	}
+	
 	private int worldXToTileX(double x) {
 		return (int)(x / map.getTileWidth());
 	}
+	
 	private int worldYToTileY(double y) {
 		return (int)(y / map.getTileHeight());
 	}

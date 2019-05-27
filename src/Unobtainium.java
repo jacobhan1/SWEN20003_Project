@@ -1,4 +1,3 @@
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 /**
  * unobtainium is type of the resource, engineer could mine it.
