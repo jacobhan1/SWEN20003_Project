@@ -1,7 +1,6 @@
 import org.newdawn.slick.SlickException;
 /**
- * @author ASUS
- *
+ * every creatable sprite could create a new sprite 
  */
 public interface Creatable {
 	

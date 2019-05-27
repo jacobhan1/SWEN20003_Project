@@ -3,7 +3,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 /**
- * commandCenter class 
+ * commandCenter has the ability to store the player's resource and create unit 
  */
 public class CommandCenter extends Building implements Creatable {
 	private static final String CENTER_PATH = "assets/buildings/command_centre.png";

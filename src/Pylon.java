@@ -3,22 +3,29 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
- * 
- *
+ * pylon when unit close to them, it will active
  */
 public class Pylon extends Building {
-	
 	private static final String PYLON_PATH = "assets/buildings/pylon.png";
 	private static final String PYLONACTIVE_PATH = "assets/buildings/pylon_active.png";
-	private static final int ACTIVE_DISTANCE = 32;
 	private Image activeImage;
 	private int count = 1;
+	
+	/**
+	 * pylon constructor
+	 * @param x pylon x coordinate
+	 * @param y pylon y coordinate
+	 * @param camera world camera
+	 * @throws SlickException
+	 */
 	public Pylon(double x, double y, Camera camera) throws SlickException {
 		super(x, y, PYLON_PATH, camera);
 	}
 	
-	
-	
+	/**
+	 * when a unit close to it, it will be active forever
+	 * @param world game world 
+	 */
 	@Override
 	public void update(World world) throws SlickException {
 		super.update(world);
@@ -35,6 +42,10 @@ public class Pylon extends Building {
 		}
 	}
 	
+	/**
+	 * render the pylon or active pylon
+	 * @param g Graphics
+	 */
 	@Override
 	public void render(Graphics g) {
 		if(activeImage != null) {
