@@ -1,6 +1,3 @@
-
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 /**
  * @author ASUS
