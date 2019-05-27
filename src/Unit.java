@@ -32,6 +32,61 @@ public abstract class Unit extends Sprite implements Selectable{
 	} 
 	
 	/**
+	 * if mouse is right button down and unit is selected, go move!
+	 * @param world game world
+	 */
+	@Override
+	public void update(World world) throws SlickException {
+		Input input = world.getInput();
+		
+		// If the mouse button is being clicked, set the target to the cursor location
+		if (isSelect() && input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
+			
+			targetX = getCamera().screenXToGlobalX(input.getMouseX());
+			targetY = getCamera().screenYToGlobalY(input.getMouseY());
+		}
+		
+		moves(world, targetX, targetY);
+	}
+	
+	/**
+	 * move the unit in the world
+	 * @param world game world
+	 * @param targetX mouse x coordinate
+	 * @param targetY mouse y coordinate
+	 */
+	public void moves(World world, double targetX, double targetY) {
+		// If we're close to our target, reset to our current position
+		if (World.distance(getX(), getY(), targetX, targetY) <= getSpeed()) {
+			resetTarget();
+		} else {
+			// Calculate the appropriate x and y distances
+			double theta = Math.atan2(targetY - getY(), targetX - getX());
+			double dx = (double)Math.cos(theta) * world.getDelta() * speed;
+			double dy = (double)Math.sin(theta) * world.getDelta() * speed;
+			// Check the tile is free before moving; otherwise, we stop moving
+			if (world.isPositionFree(getX() + dx, getY() + dy)) {
+				setX(getX() + dx);
+				setY(getY() + dy);
+			} else {
+				resetTarget();
+			}
+		}
+	}
+	
+	/**
+	 * render the unit in the world
+	 * @param g Graphics
+	 */
+	@Override
+	public void render(Graphics g) {
+		if(isSelect()) {
+		selectImage.drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()) );
+		}
+		super.render(g);
+	}
+	
+	/**
 	 * if mouse is right down, record the mouse x coordinate
 	 * @return mouse x coordinate
 	 */
@@ -80,59 +135,4 @@ public abstract class Unit extends Sprite implements Selectable{
 	public boolean isSelect() {
 		return selectImage != null;
 	} 
-	
-	/**
-	 * move the unit in the world
-	 * @param world game world
-	 * @param targetX mouse x coordinate
-	 * @param targetY mouse y coordinate
-	 */
-	public void moves(World world, double targetX, double targetY) {
-		// If we're close to our target, reset to our current position
-		if (World.distance(getX(), getY(), targetX, targetY) <= getSpeed()) {
-			resetTarget();
-		} else {
-			// Calculate the appropriate x and y distances
-			double theta = Math.atan2(targetY - getY(), targetX - getX());
-			double dx = (double)Math.cos(theta) * world.getDelta() * speed;
-			double dy = (double)Math.sin(theta) * world.getDelta() * speed;
-			// Check the tile is free before moving; otherwise, we stop moving
-			if (world.isPositionFree(getX() + dx, getY() + dy)) {
-				setX(getX() + dx);
-				setY(getY() + dy);
-			} else {
-				resetTarget();
-			}
-		}
-	}
-	
-	/**
-	 * if mouse is right button down and unit is selected, go move!
-	 * @param world game world
-	 */
-	@Override
-	public void update(World world) throws SlickException {
-		Input input = world.getInput();
-		
-		// If the mouse button is being clicked, set the target to the cursor location
-		if (isSelect() && input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
-			
-			targetX = getCamera().screenXToGlobalX(input.getMouseX());
-			targetY = getCamera().screenYToGlobalY(input.getMouseY());
-		}
-		
-		moves(world, targetX, targetY);
-	}
-	
-	/**
-	 * render the unit in the world
-	 * @param g Graphics
-	 */
-	@Override
-	public void render(Graphics g) {
-		if(isSelect()) {
-		selectImage.drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()) );
-		}
-		super.render(g);
-	}
 }
