@@ -10,10 +10,21 @@ public class Truck extends Unit implements Creatable, Removable {
 	private boolean input1 = false;
 	private int count = 0;
 	
+	/**
+	 * truck constructor
+	 * @param x truck x coordinate
+	 * @param y truck y coordinate
+	 * @param camera world camera
+	 * @throws SlickException
+	 */
 	public Truck(double x, double y, Camera camera) throws SlickException{
 		super(x, y, TRUCK_PATH, SPEED, camera);
 	}
 	
+	/**
+	 * if it creates sprite, it sould not move
+	 * @param world game world
+	 */
 	@Override
 	public void update(World world) throws SlickException {
 		Input input = world.getInput();
@@ -30,6 +41,13 @@ public class Truck extends Unit implements Creatable, Removable {
 			super.update(world);
 		}
 	}
+	
+	/**
+	 * create the commandCenter
+	 * @param input user input name
+	 * @param x truck x coordinate
+	 * @param y truck y coordinate
+	 */
 	@Override
 	public CommandCenter create(String input, double x, double y) {
 			try {
@@ -40,9 +58,16 @@ public class Truck extends Unit implements Creatable, Removable {
 		return null;
 	}
 	
+	/**
+	 * after truck creates the commanCenter, it should be removed from the world.
+	 */
 	@Override
 	public void remove() {setImage(null);}
 	
+	/**
+	 * render the truck and the function in the world
+	 * @param g render the truck's function
+	 */
 	@Override
 	public void render(Graphics g) {
 		if(getImage() != null) {

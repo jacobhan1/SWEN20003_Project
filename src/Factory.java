@@ -17,7 +17,7 @@ public class Factory extends Building implements Creatable {
 	
 	/**
 	 * factory create truck
-	 * @param input user's input
+	 * @param input user's name
 	 * @param x factory x coordinate
 	 * @param y factory y coordinate
 	 */
