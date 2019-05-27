@@ -35,7 +35,7 @@ public class Pylon extends Building {
 					getX(), getY()) <= World.DISTANCE) {
 				activeImage = new Image(PYLONACTIVE_PATH);
 			}
-			if(sprite instanceof Engineer && activeImage != null && count == 1) {
+			if (sprite instanceof Engineer && activeImage != null && count == 1) {
 				count++;
 				((Engineer)sprite).setCarryResource(1);
 			}
@@ -48,13 +48,13 @@ public class Pylon extends Building {
 	 */
 	@Override
 	public void render(Graphics g) {
-		if(activeImage != null) {
+		if (activeImage != null) {
 			if (isSelect()) {
 				getImage().drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
 			}
 			activeImage.drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
 			
-		}else {
+		} else {
 			if (isSelect()) {
 				getImage().drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()));
 			}

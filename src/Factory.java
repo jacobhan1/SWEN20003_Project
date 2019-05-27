@@ -1,6 +1,8 @@
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-
+/**
+ * factory is kind of building which could create truck.
+ */
 public class Factory extends Building implements Creatable {
 	private static final String FACTORY_PATH = "assets/buildings/factory.png";
 	

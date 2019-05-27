@@ -67,23 +67,23 @@ public class World {
 		inputChange(input);
 		// create sprite into the world, press KEY_1:
 		if (input1) {  
-			if(createObject == null) {
+			if (createObject == null) {
 				inputFalse("input1");
 			} else { 
 				if (createObject instanceof CommandCenter) {
 					addSprite(createObject, SCOUT_COST_METAL, UNIT_BUILD_TIME, "input1");
-				}else if (createObject instanceof Factory) {
+				} else if (createObject instanceof Factory) {
 					addSprite(createObject, TRUCK_COST_METAL, UNIT_BUILD_TIME, "input1");
-				}else if (createObject instanceof Builder) {
+				} else if (createObject instanceof Builder) {
 					addSprite(createObject, FACTORY_COST_METAL, FACTORY_BUILD_TIME, "input1");
-				}else if (createObject instanceof Truck) {
+				} else if (createObject instanceof Truck) {
 					addSprite(createObject, 0, COMMANDCENTRE_BUILD_TIME, "input1");
 				}
 				createObject = null;
 			}
 		// when press KEY_2:
-		}else if (input2) {
-			if(createObject == null) {
+		} else if (input2) {
+			if (createObject == null) {
 				inputFalse("input2");
 			} else {
 				if (createObject instanceof CommandCenter) {
@@ -93,7 +93,7 @@ public class World {
 			}
 		// when press KEY_3: 
 		}else if (input3) {
-			if(createObject == null) {
+			if (createObject == null) {
 				inputFalse("input3");
 			} else {
 				if (createObject instanceof CommandCenter) {
@@ -120,7 +120,7 @@ public class World {
 				   (int)camera.globalYToScreenY(0));
 		g.drawString("Metal:  <" + metal + ">\nUnobtainium:  <" + unobtainium + ">" ,
 				DISPLAY, DISPLAY);
-		for(Sprite sprite: sprites) {
+		for (Sprite sprite: sprites) {
 			sprite.render(g);
 			}
 	}
@@ -213,20 +213,20 @@ public class World {
 	
 	// if the costMetal and createTime available, then addSprite to the world
 	private void addSprite(Sprite sprite, int costMetal, int createTime, String input) throws SlickException {
-		if(sprite instanceof Removable) {
+		if (sprite instanceof Removable) {
 			if (count < createTime) {
 				count += lastDelta;
-			}else {
+			} else {
 				count = 0;
 				sprites.add(((Creatable)sprite).create(input, sprite.getX(), sprite.getY()));
 				((Removable)sprite).remove();
 			}
-		}else {
+		} else {
 			if (metal >= costMetal && count < createTime) {
 				count += lastDelta;
-			}else if (metal < costMetal) {
+			} else if (metal < costMetal) {
 				inputFalse(input);
-			}else if (metal >= costMetal && count >= createTime) {
+			} else if (metal >= costMetal && count >= createTime) {
 				count = 0;
 				inputFalse(input);
 				metal -= costMetal;
@@ -239,9 +239,9 @@ public class World {
 	private void inputChange(Input input) {
 		if (input.isKeyPressed(Input.KEY_1)) {
 			input1 = true;
-		}else if (input.isKeyPressed(Input.KEY_2)) {
+		} else if (input.isKeyPressed(Input.KEY_2)) {
 			input2 = true;
-		}else if (input.isKeyPressed(Input.KEY_3)) {
+		} else if (input.isKeyPressed(Input.KEY_3)) {
 			input3 = true;
 		}
 	}

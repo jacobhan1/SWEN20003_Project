@@ -44,9 +44,9 @@ public class Builder extends Unit implements Creatable {
 		if (input.isKeyDown(Input.KEY_1)) {
 			this.input1 = true;
 		}
-		if (input1 && isSelect() && world.getMetal() >= world.FACTORY_COST_METAL) {
+		if (input1 && isSelect() && world.getMetal() >= World.FACTORY_COST_METAL) {
 			count += delta;
-			if (count >= world.FACTORY_BUILD_TIME) {
+			if (count >= World.FACTORY_BUILD_TIME) {
 				input1 = false;
 			}
 		} else {
@@ -64,6 +64,5 @@ public class Builder extends Unit implements Creatable {
 		if (isSelect()) {
 			g.drawString("1- create factory", 32, 100);
 		}
-		
 	}
 }

@@ -2,7 +2,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-
+/**
+ * truck is kind of unit in the world. It could create the commandCenter.
+ */
 public class Truck extends Unit implements Creatable, Removable {
 	
 	private static final String TRUCK_PATH = "assets/units/truck.png";
@@ -34,7 +36,7 @@ public class Truck extends Unit implements Creatable, Removable {
 		}
 		if (input1 && isSelect()) {
 			count += delta;
-			if (count >= world.COMMANDCENTRE_BUILD_TIME) {
+			if (count >= World.COMMANDCENTRE_BUILD_TIME) {
 				input1 = false;
 			}
 		} else {
@@ -70,7 +72,7 @@ public class Truck extends Unit implements Creatable, Removable {
 	 */
 	@Override
 	public void render(Graphics g) {
-		if(getImage() != null) {
+		if (getImage() != null) {
 			super.render(g);
 			getImage().drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()) );
 			if (isSelect()) {

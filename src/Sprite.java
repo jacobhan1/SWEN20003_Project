@@ -56,7 +56,7 @@ public abstract class Sprite {
 						((Selectable)sprite).select();
 						sprite.getCamera().followSprite(sprite);
 					}
-				}else if (sprite instanceof Selectable && ((Selectable)sprite).isSelect()) {
+				} else if (sprite instanceof Selectable && ((Selectable)sprite).isSelect()) {
 					((Selectable)sprite).deSelect();
 					
 				}

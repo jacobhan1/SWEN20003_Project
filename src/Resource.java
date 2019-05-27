@@ -48,7 +48,7 @@ public abstract class Resource extends Sprite implements Removable{
 	 */
 	@Override
 	public void update(World world) throws SlickException {
-		if(amountLeft == 0) {
+		if (amountLeft == 0) {
 			remove();
 		}
 	}
@@ -59,7 +59,7 @@ public abstract class Resource extends Sprite implements Removable{
 	 */
 	@Override
 	public void render(Graphics g) {
-		if(getImage() != null) {
+		if (getImage() != null) {
 			getImage().drawCentered((int)getCamera().globalXToScreenX(getX()), (int)getCamera().globalYToScreenY(getY()) );
 		}
 	}
