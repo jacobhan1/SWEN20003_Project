@@ -20,26 +20,26 @@ public class Camera {
 		if (input.isKeyDown(Input.KEY_W)) {
 			target = null;
 			y -= delta * SPEED;
-			y = detectY(y,world);
+			y = detectY(y, world);
 		} else if (input.isKeyDown(Input.KEY_S)) {
 			target = null;
 			y += delta * SPEED;
-			y = detectY(y,world);
+			y = detectY(y, world);
 		} else if (input.isKeyDown(Input.KEY_A)) {
 			target = null;
 			x -= delta * SPEED;
-			x = detectX(x,world);
+			x = detectX(x, world);
 		} else if (input.isKeyDown(Input.KEY_D)) {
 			target = null;
 			x += delta * SPEED;
-			x = detectX(x,world);
+			x = detectX(x, world);
 		} else if (target != null && ((Selectable)target).isSelect() ){
 		
 			double targetX = target.getX() - App.WINDOW_WIDTH / 2;
 			double targetY = target.getY() - App.WINDOW_HEIGHT / 2;
 			
-			x = detectX(targetX,world);
-			y = detectY(targetY,world);
+			x = detectX(targetX, world);
+			y = detectY(targetY, world);
 		}
 	}
 	
