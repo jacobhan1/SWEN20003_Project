@@ -87,24 +87,16 @@ public class Camera {
 		return y + this.y;
 	}
 	
-	/**
-	 * detect if x need to be change in the world, return the x value
-	 * @param x camera x coordinate
-	 * @param world game world
-	 * @return update camera x coordinate
-	 */
+	
+	// detect if x need to be change in the world, return the x value
 	private double detectX(double x, World world) {
 		x = Math.min(x, world.getMapWidth() - App.WINDOW_WIDTH);
 		x = Math.max(x, 0);
 		return x;
 	}
 	
-	/**
-	 * detect if y need to be change in the world, return the y value 
-	 * @param y camera y coordinate
-	 * @param world game world
-	 * @return update camera y coordinate
-	 */
+	
+	// detect if y need to be change in the world, return the y value 
 	private double detectY(double y, World world) {
 		y = Math.min(y, world.getMapHeight() - App.WINDOW_HEIGHT);
 		y = Math.max(y, 0);
