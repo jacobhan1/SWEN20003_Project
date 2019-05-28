@@ -2,9 +2,6 @@ import org.newdawn.slick.Input;
 
 /**
  * This class should be used to restrict the game's view to a subset of the entire world.
- * 
- * You are free to make ANY modifications you see fit.
- * These classes are provided simply as a starting point. You are not strictly required to use them.
  */
 public class Camera {
 	private double x = 300;

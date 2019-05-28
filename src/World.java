@@ -11,6 +11,7 @@ import org.newdawn.slick.tiled.TiledMap;
  * and schedule their interactions.
  */
 public class World {
+	
 	public static final int DISTANCE = 32;
 	private static final String MAP_PATH = "assets/main.tmx";
 	private static final String SOLID_PROPERTY = "solid";
@@ -45,6 +46,7 @@ public class World {
 	private Camera camera = new Camera();
 	private Input lastInput;
 	private int lastDelta;
+	
 	/**
 	 * world init the map and read csv files to init the objects to the world
 	 * @throws SlickException
@@ -259,23 +261,23 @@ public class World {
 				int y = Integer.parseInt(data[INDEX_Y]);
 				
 				switch (data[INDEX_OBJECT]) {
-					case("command_centre"):
+					case ("command_centre"):
 						sprites.add(new CommandCenter(x, y, camera));
 						break;
 						
-					case("metal_mine"):
+					case ("metal_mine"):
 						sprites.add(new Metal(x, y, camera));
 						break;
 						
-					case("unobtainium_mine"):
+					case ("unobtainium_mine"):
 						sprites.add(new Unobtainium(x, y, camera));
 						break;
 						
-					case("pylon"):
+					case ("pylon"):
 						sprites.add(new Pylon(x, y, camera));
 						break;
 					
-					case("engineer"):
+					case ("engineer"):
 						sprites.add(new Engineer(x, y, camera));
 						break;
 				}
