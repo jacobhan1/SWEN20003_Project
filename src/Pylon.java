@@ -35,6 +35,7 @@ public class Pylon extends Building {
 					getX(), getY()) <= World.DISTANCE) {
 				activeImage = new Image(PYLONACTIVE_PATH);
 			}
+			// only active once 
 			if (sprite instanceof Engineer && activeImage != null && count == 1) {
 				count++;
 				((Engineer)sprite).setCarryResource(1);

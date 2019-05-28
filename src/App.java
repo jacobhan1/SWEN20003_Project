@@ -1,8 +1,3 @@
-/**
- * Sample Project for SWEN20003: Object Oriented Software Development, 2019, Semester 1
- * by Eleanor McMurtry, University of Melbourne
- */
-
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -13,7 +8,7 @@ import org.newdawn.slick.Input;
 /**
  * Main class for the game.
  * Handles initialisation, input and rendering.
- * use project 1 sample code to build project 2
+ * based on project 1 sample code to build project 2
  * 
  */
 public class App extends BasicGame {

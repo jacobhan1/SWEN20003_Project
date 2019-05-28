@@ -13,8 +13,8 @@ public class Engineer extends Unit {
 	private static final float MINE_TIME = 5000;
 	private Resource resource;
 	private CommandCenter commandCenter;
-	private double targetX = getX();
-	private double targetY = getY();
+	private double mouseX = getX();
+	private double mouseY = getY();
 	private float count = 0;
 	
 	/**
@@ -37,34 +37,34 @@ public class Engineer extends Unit {
 	public void update(World world) throws SlickException {
 		Input input = world.getInput();
 		int delta = world.getDelta();
-		if (input.isKeyPressed(Input.KEY_2)) {
-		System.out.println(targetX);}
+		
 		// If the mouse button is being clicked, set the target to the cursor location
 		if (isSelect() && input.isMousePressed(Input.MOUSE_RIGHT_BUTTON)) {
 			
-			targetX = getCamera().screenXToGlobalX(input.getMouseX());
-			targetY = getCamera().screenYToGlobalY(input.getMouseY());
+			mouseX = getCamera().screenXToGlobalX(input.getMouseX());
+			mouseY = getCamera().screenYToGlobalY(input.getMouseY());
 		} else if (commandCenter != null && resource.getAmount() > 0)	{
 			// arrive resource to mine
 			if ((World.distance(getX(), getY(), resource.getX(), resource.getY())) <= World.DISTANCE) {
 				count += delta;
 				if (count > MINE_TIME && carryResources <= resource.getAmount()) {
-					targetX = commandCenter.getX();
-					targetY = commandCenter.getY();
+					mouseX = commandCenter.getX();
+					mouseY = commandCenter.getY();
 					playerCarryResource = carryResources;
 					resource.setAmount(carryResources);
 					count = 0;
 				} else if (count > MINE_TIME && carryResources > resource.getAmount()) {
-					targetX = commandCenter.getX();
-					targetY = commandCenter.getY();
+					mouseX = commandCenter.getX();
+					mouseY = commandCenter.getY();
 					playerCarryResource = resource.getAmount();
 					resource.setAmount(resource.getAmount());
 					count = 0;
 				}
 			// arrive commandCenter to send the resource
-			} else if ((World.distance(getX(), getY(), commandCenter.getX(), commandCenter.getY())) <= 32) {
-				targetX = resource.getX();
-				targetY = resource.getY();
+			} else if ((World.distance(getX(), getY(), 
+					commandCenter.getX(), commandCenter.getY())) <= World.DISTANCE) {
+				mouseX = resource.getX();
+				mouseY = resource.getY();
 				if (resource instanceof Metal) {
 					world.setMetal(playerCarryResource);
 				} else {
@@ -72,13 +72,13 @@ public class Engineer extends Unit {
 				}
 				playerCarryResource = 0;
 				if (resource.getAmount() == 0) {
-					targetX = getX();
-					targetY = getY();
+					mouseX = getX();
+					mouseY = getY();
 					
 				}
 			}
 		}
-		moves(world, targetX, targetY);
+		moves(world, mouseX, mouseY);
 		// find the resource to mine 
 		findMineResource(world.getSprites());
 		
