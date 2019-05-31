@@ -3,6 +3,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+/**
+ * Building could be selected and has three tyeps: commandcenter, pylon and factory.
+ */
 public abstract class Building extends Sprite implements Selectable{
 	private static final String HIGHLIGHT_LARGE = "assets/highlight_large.png";
 	private Image selectImage;

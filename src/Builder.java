@@ -3,6 +3,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+/**
+ * builder could create the factory as a unit.
+ */
 public class Builder extends Unit implements Creatable {
 	private static final String BUILDER_PATH = "assets/units/builder.png";
 	private static final double SPEED = 0.1;
