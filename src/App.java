@@ -8,8 +8,6 @@ import org.newdawn.slick.Input;
 /**
  * Main class for the game.
  * Handles initialisation, input and rendering.
- * based on project 1 sample code to build project 2
- * 
  */
 public class App extends BasicGame {
     /** window width, in pixels */
