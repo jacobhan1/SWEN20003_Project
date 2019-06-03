@@ -1,8 +1,8 @@
 # SWEN20003_Project
-See project1 and project2 pdf 
 
+Requirements in project1.pdf and project2.pdf
 
-Design details in uml.pdf
+Design details in uml.pdf (not final update one)
 
 
 Author: Jacob
